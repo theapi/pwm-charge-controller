@@ -115,7 +115,10 @@ int main(void)
 
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
-  /* Start the PWM which is configured for 10.4kHz */
+  /* Start the PWM which is configured for 10.4kHz
+   *
+   * Smooth with 4.6k & 1uF RC low pass filter.
+   */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
   uint32_t fade1 = 0;
@@ -143,8 +146,12 @@ int main(void)
 	  }
 
 	  htim2.Instance->CCR1 = fade1;
+	  HAL_Delay(2);
 
-	  HAL_Delay(20);
+//	  htim2.Instance->CCR1 = 127;
+//	  HAL_Delay(30);
+//	  htim2.Instance->CCR1 = 0;
+//	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
