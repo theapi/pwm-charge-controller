@@ -40,12 +40,16 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "string.h"
+#include "stdio.h"
 
 /* USER CODE END Includes */
 
@@ -84,6 +88,8 @@ void SystemClock_Config(void);
 /* Buffer used for debug UART */
 char tx_buffer[TXBUFFERSIZE];
 uint8_t msg_id = 0;
+uint32_t batt = 0;
+
 
 /* USER CODE END 0 */
 
@@ -117,9 +123,15 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
+  MX_ADC_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+
+  /* Calibrate the ADC */
+  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
+  /* Start the adc */
+  HAL_ADC_Start(&hadc);
 
   /* Start the PWM which is configured for 10.4kHz
    *
@@ -139,30 +151,59 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if (direction == 0) {
-		  fade1++;
-	  } else {
-		  fade1--;
+//	  if (direction == 0) {
+//		  fade1++;
+//	  } else {
+//		  fade1--;
+//	  }
+//
+//	  if (fade1 == 255) {
+//		  direction = 1;
+//	  } else if (fade1 == 0) {
+//		  direction = 0;
+//	  }
+//
+//	  htim2.Instance->CCR1 = fade1;
+//
+//	  HAL_Delay(2);
+
+
+
+
+
+	  htim2.Instance->CCR1 = 162;
+
+
+
+	  uint32_t val = 0;
+	  for (uint8_t i = 0; i < 8; i++) {
+		  HAL_ADC_PollForConversion(&hadc, 100);
+		  val += HAL_ADC_GetValue(&hadc);
 	  }
+	  val = val / 8;
 
-	  if (fade1 == 255) {
-		  direction = 1;
-	  } else if (fade1 == 0) {
-		  direction = 0;
-	  }
-
-	  htim2.Instance->CCR1 = fade1;
-
+	  /*
+	   * MAX adc = 4095
+	   * 4095 = 3300mV
+	   * 1 bit = 0.805860806mV
+	   */
+	  //HAL_ADC_PollForConversion(&hadc, 100);
+	  uint32_t prev = batt;
+	  //uint32_t val = HAL_ADC_GetValue(&hadc);
+	  float mv = (float)val * 0.805860806;
+	  batt = (int)mv;
+	  int32_t diff = batt - prev;
 	  int tx_len = snprintf(
 		  tx_buffer,
 		  TXBUFFERSIZE,
-		  "msg_id:%d\n",
-		  msg_id++
+		  "msg_id:%d, val:%lu, batt:%lu, diff: %ld\n",
+		  msg_id++,
+		  val,
+		  batt, diff
 	  );
-	  // Blocking UART.
 	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+	  HAL_Delay(250);
 
-	  HAL_Delay(500);
 
 //	  htim2.Instance->CCR1 = 127;
 //	  HAL_Delay(30);
