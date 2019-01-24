@@ -57,6 +57,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+#define TXBUFFERSIZE 128
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -78,6 +80,10 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+/* Buffer used for debug UART */
+char tx_buffer[TXBUFFERSIZE];
+uint8_t msg_id = 0;
 
 /* USER CODE END 0 */
 
@@ -146,7 +152,17 @@ int main(void)
 	  }
 
 	  htim2.Instance->CCR1 = fade1;
-	  HAL_Delay(2);
+
+	  int tx_len = snprintf(
+		  tx_buffer,
+		  TXBUFFERSIZE,
+		  "msg_id:%d\n",
+		  msg_id++
+	  );
+	  // Blocking UART.
+	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+
+	  HAL_Delay(500);
 
 //	  htim2.Instance->CCR1 = 127;
 //	  HAL_Delay(30);
