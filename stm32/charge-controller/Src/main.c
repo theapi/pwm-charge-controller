@@ -142,6 +142,8 @@ int main(void)
   uint32_t fade1 = 0;
   uint8_t direction = 0;
 
+  htim2.Instance->CCR1 = 127;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -151,58 +153,58 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  if (direction == 0) {
-//		  fade1++;
-//	  } else {
-//		  fade1--;
-//	  }
-//
-//	  if (fade1 == 255) {
-//		  direction = 1;
-//	  } else if (fade1 == 0) {
-//		  direction = 0;
-//	  }
-//
-//	  htim2.Instance->CCR1 = fade1;
-//
-//	  HAL_Delay(2);
-
-
-
-
-
-	  htim2.Instance->CCR1 = 162;
-
-
-
-	  uint32_t val = 0;
-	  for (uint8_t i = 0; i < 8; i++) {
-		  HAL_ADC_PollForConversion(&hadc, 100);
-		  val += HAL_ADC_GetValue(&hadc);
+	  if (direction == 0) {
+		  fade1++;
+	  } else {
+		  fade1--;
 	  }
-	  val = val / 8;
 
-	  /*
-	   * MAX adc = 4095
-	   * 4095 = 3300mV
-	   * 1 bit = 0.805860806mV
-	   */
-	  //HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t prev = batt;
-	  //uint32_t val = HAL_ADC_GetValue(&hadc);
-	  float mv = (float)val * 0.805860806;
-	  batt = (int)mv;
-	  int32_t diff = batt - prev;
-	  int tx_len = snprintf(
-		  tx_buffer,
-		  TXBUFFERSIZE,
-		  "msg_id:%d, val:%lu, batt:%lu, diff: %ld\n",
-		  msg_id++,
-		  val,
-		  batt, diff
-	  );
-	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-	  HAL_Delay(250);
+	  if (fade1 == 254) {
+		  direction = 1;
+	  } else if (fade1 == 0) {
+		  direction = 0;
+	  }
+
+	  htim2.Instance->CCR1 = fade1;
+
+	  HAL_Delay(2);
+
+
+
+
+
+	  //htim2.Instance->CCR1 = 162;
+
+
+
+//	  uint32_t val = 0;
+//	  for (uint8_t i = 0; i < 8; i++) {
+//		  HAL_ADC_PollForConversion(&hadc, 100);
+//		  val += HAL_ADC_GetValue(&hadc);
+//	  }
+//	  val = val / 8;
+
+//	  /*
+//	   * MAX adc = 4095
+//	   * 4095 = 3300mV
+//	   * 1 bit = 0.805860806mV
+//	   */
+//	  //HAL_ADC_PollForConversion(&hadc, 100);
+//	  uint32_t prev = batt;
+//	  //uint32_t val = HAL_ADC_GetValue(&hadc);
+//	  float mv = (float)val * 0.805860806;
+//	  batt = (int)mv;
+//	  int32_t diff = batt - prev;
+//	  int tx_len = snprintf(
+//		  tx_buffer,
+//		  TXBUFFERSIZE,
+//		  "msg_id:%d, val:%lu, batt:%lu, diff: %ld\n",
+//		  msg_id++,
+//		  val,
+//		  batt, diff
+//	  );
+//	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+//	  HAL_Delay(250);
 
 
 //	  htim2.Instance->CCR1 = 127;
