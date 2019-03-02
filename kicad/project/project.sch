@@ -1,0 +1,203 @@
+EESchema Schematic File Version 4
+LIBS:project-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_ST_STM32L0:STM32L031F4Px U?
+U 1 1 5C7AC20A
+P 4775 3650
+F 0 "U?" H 4900 2900 50  0000 C CNN
+F 1 "STM32L031F4Px" H 5150 2825 50  0000 C CNN
+F 2 "Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm" H 4375 2950 50  0001 R CNN
+F 3 "http://www.st.com/st-web-ui/static/active/en/resource/technical/document/datasheet/DM00140359.pdf" H 4775 3650 50  0001 C CNN
+	1    4775 3650
+	1    0    0    -1  
+$EndComp
+Text GLabel 5275 4250 2    50   Input ~ 0
+SWCLK
+Text GLabel 5275 4150 2    50   Input ~ 0
+SWDI0
+Text GLabel 5275 3650 2    50   Input ~ 0
+PWM
+Text GLabel 5275 3150 2    50   Input ~ 0
+BATT_SENSE
+Text GLabel 4275 3950 0    50   Input ~ 0
+LED
+Text GLabel 5275 3350 2    50   Input ~ 0
+UART_TX
+Text GLabel 5275 3450 2    50   Input ~ 0
+UART_RX
+Text GLabel 4275 3350 0    50   Input ~ 0
+BOOT0
+Text GLabel 4275 3150 0    50   Input ~ 0
+NRST
+$Comp
+L power:GND #PWR?
+U 1 1 5C7AC377
+P 4775 4450
+F 0 "#PWR?" H 4775 4200 50  0001 C CNN
+F 1 "GND" H 4780 4277 50  0000 C CNN
+F 2 "" H 4775 4450 50  0001 C CNN
+F 3 "" H 4775 4450 50  0001 C CNN
+	1    4775 4450
+	1    0    0    -1  
+$EndComp
+Text GLabel 4275 4050 0    50   Input ~ 0
+PC15
+Text GLabel 5275 3250 2    50   Input ~ 0
+PANEL_SENSE
+Text GLabel 5275 3550 2    50   Input ~ 0
+PA4
+Text GLabel 5275 3750 2    50   Input ~ 0
+PA6
+Text GLabel 5275 3850 2    50   Input ~ 0
+PA7
+Text GLabel 5275 3950 2    50   Input ~ 0
+SCL
+Text GLabel 5275 4050 2    50   Input ~ 0
+SDA
+Text GLabel 4275 4250 0    50   Input ~ 0
+CURRENT_SENSE
+$Comp
+L power:+3V3 #PWR?
+U 1 1 5C7ACC5E
+P 4775 2300
+F 0 "#PWR?" H 4775 2150 50  0001 C CNN
+F 1 "+3V3" H 4790 2473 50  0000 C CNN
+F 2 "" H 4775 2300 50  0001 C CNN
+F 3 "" H 4775 2300 50  0001 C CNN
+	1    4775 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4775 2400 4775 2950
+Wire Wire Line
+	4875 2950 4875 2400
+Wire Wire Line
+	4875 2400 4775 2400
+Connection ~ 4775 2400
+$Comp
+L Device:C_Small C?
+U 1 1 5C7ACD13
+P 4450 2500
+F 0 "C?" H 4542 2546 50  0000 L CNN
+F 1 "100nF" H 4542 2455 50  0000 L CNN
+F 2 "" H 4450 2500 50  0001 C CNN
+F 3 "~" H 4450 2500 50  0001 C CNN
+	1    4450 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C7ACD67
+P 5100 2500
+F 0 "C?" H 5192 2546 50  0000 L CNN
+F 1 "100nF" H 5192 2455 50  0000 L CNN
+F 2 "" H 5100 2500 50  0001 C CNN
+F 3 "~" H 5100 2500 50  0001 C CNN
+	1    5100 2500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4775 2400 4775 2300
+Wire Wire Line
+	4450 2400 4775 2400
+Wire Wire Line
+	5100 2400 4875 2400
+Connection ~ 4875 2400
+$Comp
+L power:GND #PWR?
+U 1 1 5C7ACE2D
+P 4450 2600
+F 0 "#PWR?" H 4450 2350 50  0001 C CNN
+F 1 "GND" H 4455 2427 50  0000 C CNN
+F 2 "" H 4450 2600 50  0001 C CNN
+F 3 "" H 4450 2600 50  0001 C CNN
+	1    4450 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7ACE47
+P 5100 2600
+F 0 "#PWR?" H 5100 2350 50  0001 C CNN
+F 1 "GND" H 5105 2427 50  0000 C CNN
+F 2 "" H 5100 2600 50  0001 C CNN
+F 3 "" H 5100 2600 50  0001 C CNN
+	1    5100 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C7ACF3C
+P 5550 2500
+F 0 "C?" H 5642 2546 50  0000 L CNN
+F 1 "1uF" H 5642 2455 50  0000 L CNN
+F 2 "" H 5550 2500 50  0001 C CNN
+F 3 "~" H 5550 2500 50  0001 C CNN
+	1    5550 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5C7ACF8A
+P 4050 2500
+F 0 "C?" H 4142 2546 50  0000 L CNN
+F 1 "10uF" H 4142 2455 50  0000 L CNN
+F 2 "" H 4050 2500 50  0001 C CNN
+F 3 "~" H 4050 2500 50  0001 C CNN
+	1    4050 2500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 2400 4450 2400
+Connection ~ 4450 2400
+Wire Wire Line
+	5550 2400 5100 2400
+Connection ~ 5100 2400
+$Comp
+L power:GND #PWR?
+U 1 1 5C7AD02B
+P 4050 2600
+F 0 "#PWR?" H 4050 2350 50  0001 C CNN
+F 1 "GND" H 4055 2427 50  0000 C CNN
+F 2 "" H 4050 2600 50  0001 C CNN
+F 3 "" H 4050 2600 50  0001 C CNN
+	1    4050 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5C7AD040
+P 5550 2600
+F 0 "#PWR?" H 5550 2350 50  0001 C CNN
+F 1 "GND" H 5555 2427 50  0000 C CNN
+F 2 "" H 5550 2600 50  0001 C CNN
+F 3 "" H 5550 2600 50  0001 C CNN
+	1    5550 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L theapi_driver:VN7003ALH U?
+U 1 1 5C7AD452
+P 7325 3400
+F 0 "U?" H 7375 3765 50  0000 C CNN
+F 1 "VN7003ALH" H 7375 3674 50  0000 C CNN
+F 2 "" H 7325 3400 50  0001 C CNN
+F 3 "" H 7325 3400 50  0001 C CNN
+	1    7325 3400
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
