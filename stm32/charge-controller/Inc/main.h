@@ -80,12 +80,16 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin GPIO_PIN_14
 #define LED_GPIO_Port GPIOC
-#define BATT_SENSE_Pin GPIO_PIN_0
-#define BATT_SENSE_GPIO_Port GPIOA
-#define PANEL_SENSE_Pin GPIO_PIN_1
+#define PANEL_SENSE_Pin GPIO_PIN_0
 #define PANEL_SENSE_GPIO_Port GPIOA
+#define BATT_SENSE_Pin GPIO_PIN_1
+#define BATT_SENSE_GPIO_Port GPIOA
 #define PWM_Pin GPIO_PIN_5
 #define PWM_GPIO_Port GPIOA
+#define FR_DIAG_Pin GPIO_PIN_6
+#define FR_DIAG_GPIO_Port GPIOA
+#define ADC_READY_Pin GPIO_PIN_7
+#define ADC_READY_GPIO_Port GPIOA
 #define CURRENT_SENSE_Pin GPIO_PIN_1
 #define CURRENT_SENSE_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
