@@ -77,13 +77,6 @@ void MX_ADC_Init(void)
   {
     Error_Handler();
   }
-  /** Configure for the selected ADC regular channel to be converted. 
-  */
-  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
-  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
   /** Configure the analog watchdog 
   */
   AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_SINGLE_REG;
