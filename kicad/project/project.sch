@@ -334,12 +334,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR035
 U 1 1 5C7B5C1D
-P 9975 4975
-F 0 "#PWR035" H 9975 4725 50  0001 C CNN
-F 1 "GND" H 9980 4802 50  0000 C CNN
-F 2 "" H 9975 4975 50  0001 C CNN
-F 3 "" H 9975 4975 50  0001 C CNN
-	1    9975 4975
+P 10425 5375
+F 0 "#PWR035" H 10425 5125 50  0001 C CNN
+F 1 "GND" H 10430 5202 50  0000 C CNN
+F 2 "" H 10425 5375 50  0001 C CNN
+F 3 "" H 10425 5375 50  0001 C CNN
+	1    10425 5375
 	1    0    0    -1  
 $EndComp
 Text GLabel 6925 4575 0    50   Input ~ 0
@@ -549,7 +549,7 @@ F 3 "" H 7600 3575 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9975 4575 9975 2675
+	10425 4575 10425 2675
 Wire Wire Line
 	6900 3175 7125 3175
 Text Label 6375 3925 0    50   ~ 0
@@ -939,8 +939,6 @@ Wire Wire Line
 Wire Wire Line
 	6900 3175 6900 3925
 Wire Wire Line
-	9975 2675 7600 2675
-Wire Wire Line
 	4550 3925 6900 3925
 Wire Wire Line
 	6000 3075 6000 3150
@@ -1098,12 +1096,12 @@ $EndComp
 $Comp
 L Device:Battery BT1
 U 1 1 5C80B97F
-P 9975 4775
-F 0 "BT1" H 10083 4821 50  0000 L CNN
-F 1 "Battery" H 10083 4730 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9975 4835 50  0001 C CNN
-F 3 "~" V 9975 4835 50  0001 C CNN
-	1    9975 4775
+P 10425 5175
+F 0 "BT1" H 10533 5221 50  0000 L CNN
+F 1 "Battery" H 10533 5130 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 10425 5235 50  0001 C CNN
+F 3 "~" V 10425 5235 50  0001 C CNN
+	1    10425 5175
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
@@ -1142,19 +1140,14 @@ Connection ~ 2050 5250
 $Comp
 L Device:D_Schottky D5
 U 1 1 5C7C7D61
-P 9575 4575
-F 0 "D5" H 9575 4359 50  0000 C CNN
-F 1 "D_Schottky" H 9575 4450 50  0000 C CNN
-F 2 "Diode_THT:D_5KP_P10.16mm_Horizontal" H 9575 4575 50  0001 C CNN
-F 3 "~" H 9575 4575 50  0001 C CNN
-	1    9575 4575
+P 9475 4575
+F 0 "D5" H 9475 4359 50  0000 C CNN
+F 1 "D_Schottky" H 9475 4450 50  0000 C CNN
+F 2 "Diode_THT:D_5KP_P10.16mm_Horizontal" H 9475 4575 50  0001 C CNN
+F 3 "~" H 9475 4575 50  0001 C CNN
+	1    9475 4575
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	9200 4575 9425 4575
-Wire Wire Line
-	9725 4575 9975 4575
-Connection ~ 9975 4575
 $Comp
 L theapi_driver:VN7003ALH U4
 U 1 1 5C7F933B
@@ -1172,4 +1165,47 @@ Connection ~ 2050 1000
 Connection ~ 1700 1000
 Wire Wire Line
 	1700 1000 2050 1000
+$Comp
+L Device:Amperemeter_DC MES2
+U 1 1 5C82C864
+P 10425 4775
+F 0 "MES2" H 10300 4850 50  0000 R CNN
+F 1 "Amperemeter" H 10375 4950 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x01_P2.54mm_Vertical" V 10425 4875 50  0001 C CNN
+F 3 "~" V 10425 4875 50  0001 C CNN
+	1    10425 4775
+	-1   0    0    1   
+$EndComp
+Connection ~ 10425 4575
+$Comp
+L Device:Voltmeter_DC MES1
+U 1 1 5C83B4FA
+P 9725 4775
+F 0 "MES1" H 9850 4700 50  0000 L CNN
+F 1 "Voltmeter" H 9775 4600 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x01_P2.54mm_Vertical" V 9725 4875 50  0001 C CNN
+F 3 "~" V 9725 4875 50  0001 C CNN
+	1    9725 4775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9725 4575 10425 4575
+$Comp
+L power:GND #PWR036
+U 1 1 5C8412BA
+P 9725 4975
+F 0 "#PWR036" H 9725 4725 50  0001 C CNN
+F 1 "GND" H 9730 4802 50  0000 C CNN
+F 2 "" H 9725 4975 50  0001 C CNN
+F 3 "" H 9725 4975 50  0001 C CNN
+	1    9725 4975
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9200 4575 9325 4575
+Wire Wire Line
+	9625 4575 9725 4575
+Connection ~ 9725 4575
+Wire Wire Line
+	7600 2675 10425 2675
 $EndSCHEMATC
