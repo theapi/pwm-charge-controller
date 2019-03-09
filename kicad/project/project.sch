@@ -626,7 +626,7 @@ Wire Wire Line
 	7300 4425 7950 4425
 Wire Wire Line
 	4550 4425 7000 4425
-Text Label 5025 4425 0    50   ~ 0
+Text Label 7550 4425 0    50   ~ 0
 FR_DIAG
 Text Label 5025 4325 0    50   ~ 0
 PWM
@@ -1100,8 +1100,6 @@ Connection ~ 2050 1000
 Connection ~ 1700 1000
 Wire Wire Line
 	1700 1000 2050 1000
-Wire Wire Line
-	7500 2675 7600 2675
 $Comp
 L Connector:Conn_01x02_Male J3
 U 1 1 5C83132D
@@ -1180,11 +1178,14 @@ F 3 "" H 10525 5825 50  0001 C CNN
 	1    10525 5825
 	-1   0    0    1   
 $EndComp
-Connection ~ 7600 2675
 Wire Wire Line
 	7600 2675 10325 2675
 Wire Wire Line
 	9825 4475 10325 4475
 Wire Wire Line
 	9625 4475 9825 4475
+Text Label 9200 4475 0    50   ~ 0
+OUT
+Text Label 7550 4325 0    50   ~ 0
+INPUT
 $EndSCHEMATC
