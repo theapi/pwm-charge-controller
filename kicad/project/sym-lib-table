@@ -2,4 +2,5 @@
   (lib (name theapi_driver)(type Legacy)(uri /home/peter/repos/pwm-charge-controller/kicad/project/theapi_driver.lib)(options "")(descr ""))
   (lib (name theapi_Regulator)(type Legacy)(uri /home/peter/repos/pwm-charge-controller/kicad/project/theapi_Regulator.lib)(options "")(descr ""))
   (lib (name project-rescue)(type Legacy)(uri ${KIPRJMOD}/project-rescue.lib)(options "")(descr ""))
+  (lib (name theapi_Battery)(type Legacy)(uri /home/peter/repos/pwm-charge-controller/kicad/project/theapi_Battery.lib)(options "")(descr ""))
 )
