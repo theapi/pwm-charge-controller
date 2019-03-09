@@ -395,8 +395,6 @@ Wire Wire Line
 Connection ~ 7700 4575
 Wire Wire Line
 	7700 4575 7950 4575
-Text Label 5025 4225 0    50   ~ 0
-PA4
 Wire Wire Line
 	4550 4325 7000 4325
 $Comp
@@ -492,8 +490,8 @@ F 3 "~" H 2625 4625 50  0001 C CNN
 	1    2625 4625
 	0    -1   -1   0   
 $EndComp
-Text Label 3400 4625 0    50   ~ 0
-LED
+Text Label 2825 4625 0    50   ~ 0
+LED_1
 $Comp
 L Device:R R15
 U 1 1 5C7C5AEB
@@ -1188,4 +1186,10 @@ Text Label 9200 4475 0    50   ~ 0
 OUT
 Text Label 7550 4325 0    50   ~ 0
 INPUT
+Text Label 2825 4725 0    50   ~ 0
+LED_2
+Text Label 5025 4225 0    50   ~ 0
+LED_3
+Text Label 9150 4625 0    50   ~ 0
+LED_4
 $EndSCHEMATC

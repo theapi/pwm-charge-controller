@@ -752,17 +752,6 @@ F 3 "" H 3150 6275 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:Earth #PWR09
-U 1 1 593024E3
-P 3150 6425
-F 0 "#PWR09" H 3150 6175 50  0001 C CNN
-F 1 "Earth" H 3150 6275 50  0001 C CNN
-F 2 "" H 3150 6425 50  0000 C CNN
-F 3 "" H 3150 6425 50  0000 C CNN
-	1    3150 6425
-	-1   0    0    -1  
-$EndComp
-$Comp
 L power:+3.3V #PWR04
 U 1 1 59303669
 P 2350 6125
@@ -1192,4 +1181,15 @@ Text Label 5025 4225 0    50   ~ 0
 LED_3
 Text Label 9150 4625 0    50   ~ 0
 LED_4
+$Comp
+L power:GND #PWR?
+U 1 1 5C843977
+P 3150 6425
+F 0 "#PWR?" H 3150 6175 50  0001 C CNN
+F 1 "GND" H 3155 6252 50  0000 C CNN
+F 2 "" H 3150 6425 50  0001 C CNN
+F 3 "" H 3150 6425 50  0001 C CNN
+	1    3150 6425
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
