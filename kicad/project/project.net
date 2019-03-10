@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/peter/repos/pwm-charge-controller/kicad/project/project.sch)
-    (date "Sun 10 Mar 2019 15:27:01 GMT")
+    (date "Sun 10 Mar 2019 15:52:30 GMT")
     (tool "Eeschema 5.0.2-bee76a0~70~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -296,7 +296,7 @@
       (tstamp 5C87CDCA))
     (comp (ref J3)
       (value Voltmeter)
-      (footprint Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical_SMD_Pin1Right)
+      (footprint theapi:Voltmeter_Header_1x03)
       (datasheet ~)
       (libsource (lib Connector) (part Conn_01x03_Male) (description "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"))
       (sheetpath (names /) (tstamps /))
