@@ -344,8 +344,6 @@ F 3 "~" H 7150 4325 50  0001 C CNN
 	1    7150 4325
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7300 4325 7950 4325
 $Comp
 L Device:R R13
 U 1 1 5C7B71BF
@@ -750,17 +748,6 @@ F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3188 6125 50  
 F 3 "" H 3150 6275 50  0001 C CNN
 	1    3150 6275
 	1    0    0    -1  
-$EndComp
-$Comp
-L power:Earth #PWR09
-U 1 1 593024E3
-P 3150 6425
-F 0 "#PWR09" H 3150 6175 50  0001 C CNN
-F 1 "Earth" H 3150 6275 50  0001 C CNN
-F 2 "" H 3150 6425 50  0000 C CNN
-F 3 "" H 3150 6425 50  0000 C CNN
-	1    3150 6425
-	-1   0    0    -1  
 $EndComp
 $Comp
 L power:+3.3V #PWR04
@@ -1192,4 +1179,17 @@ Text Label 5025 4225 0    50   ~ 0
 LED_3
 Text Label 9150 4625 0    50   ~ 0
 LED_4
+$Comp
+L power:GND #PWR?
+U 1 1 5C843977
+P 3150 6425
+F 0 "#PWR?" H 3150 6175 50  0001 C CNN
+F 1 "GND" H 3155 6252 50  0000 C CNN
+F 2 "" H 3150 6425 50  0001 C CNN
+F 3 "" H 3150 6425 50  0001 C CNN
+	1    3150 6425
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4325 7950 4325
 $EndSCHEMATC
