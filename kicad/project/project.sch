@@ -1205,4 +1205,92 @@ F 3 "" H 10700 4025 50  0001 C CNN
 	1    10700 4025
 	1    0    0    -1  
 $EndComp
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 5C8B15A7
+P 9000 1050
+F 0 "H1" H 9100 1101 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9100 1010 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 9000 1050 50  0001 C CNN
+F 3 "~" H 9000 1050 50  0001 C CNN
+	1    9000 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 5C8B1717
+P 10025 1050
+F 0 "H2" H 10125 1101 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10125 1010 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 10025 1050 50  0001 C CNN
+F 3 "~" H 10025 1050 50  0001 C CNN
+	1    10025 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H3
+U 1 1 5C8B74C5
+P 9000 1675
+F 0 "H3" H 9100 1726 50  0000 L CNN
+F 1 "MountingHole_Pad" H 9100 1635 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 9000 1675 50  0001 C CNN
+F 3 "~" H 9000 1675 50  0001 C CNN
+	1    9000 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H4
+U 1 1 5C8B74CC
+P 10025 1675
+F 0 "H4" H 10125 1726 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10125 1635 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 10025 1675 50  0001 C CNN
+F 3 "~" H 10025 1675 50  0001 C CNN
+	1    10025 1675
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR034
+U 1 1 5C8BA2A9
+P 9000 1150
+F 0 "#PWR034" H 9000 900 50  0001 C CNN
+F 1 "GND" H 9005 977 50  0000 C CNN
+F 2 "" H 9000 1150 50  0001 C CNN
+F 3 "" H 9000 1150 50  0001 C CNN
+	1    9000 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR037
+U 1 1 5C8BA36C
+P 10025 1150
+F 0 "#PWR037" H 10025 900 50  0001 C CNN
+F 1 "GND" H 10030 977 50  0000 C CNN
+F 2 "" H 10025 1150 50  0001 C CNN
+F 3 "" H 10025 1150 50  0001 C CNN
+	1    10025 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR039
+U 1 1 5C8BA3D3
+P 10025 1775
+F 0 "#PWR039" H 10025 1525 50  0001 C CNN
+F 1 "GND" H 10030 1602 50  0000 C CNN
+F 2 "" H 10025 1775 50  0001 C CNN
+F 3 "" H 10025 1775 50  0001 C CNN
+	1    10025 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR038
+U 1 1 5C8BA43A
+P 9000 1775
+F 0 "#PWR038" H 9000 1525 50  0001 C CNN
+F 1 "GND" H 9005 1602 50  0000 C CNN
+F 2 "" H 9000 1775 50  0001 C CNN
+F 3 "" H 9000 1775 50  0001 C CNN
+	1    9000 1775
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
