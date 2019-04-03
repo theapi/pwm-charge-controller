@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/peter/repos/pwm-charge-controller/kicad/project/project.sch)
-    (date "Thu 14 Mar 2019 17:41:48 GMT")
+    (date "Wed 03 Apr 2019 09:26:04 BST")
     (tool "Eeschema 5.0.2-bee76a0~70~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
