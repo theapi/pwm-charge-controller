@@ -1,5 +1,5 @@
 M48
-;DRILL file {KiCad 5.0.2-bee76a0~70~ubuntu16.04.1} date Sat 16 Mar 2019 14:37:58 GMT
+;DRILL file {KiCad 5.0.2-bee76a0~70~ubuntu16.04.1} date Sun 17 Mar 2019 10:40:44 GMT
 ;FORMAT={-:-/ absolute / inch / decimal}
 FMAT,2
 INCH,TZ
@@ -110,9 +110,9 @@ T4
 X4.0748Y-4.252
 X4.5748Y-4.252
 T5
-X7.185Y-3.1102
-X3.6417Y-3.1102
 X7.185Y-5.1575
 X3.6417Y-5.1575
+X7.185Y-3.1102
+X3.6417Y-3.1102
 T0
 M30
