@@ -78,12 +78,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_Pin GPIO_PIN_14
-#define LED_GPIO_Port GPIOC
+#define LED_1_Pin GPIO_PIN_14
+#define LED_1_GPIO_Port GPIOC
+#define LED_2_Pin GPIO_PIN_15
+#define LED_2_GPIO_Port GPIOC
 #define PANEL_SENSE_Pin GPIO_PIN_0
 #define PANEL_SENSE_GPIO_Port GPIOA
 #define BATT_SENSE_Pin GPIO_PIN_1
 #define BATT_SENSE_GPIO_Port GPIOA
+#define LED_3_Pin GPIO_PIN_4
+#define LED_3_GPIO_Port GPIOA
 #define PWM_Pin GPIO_PIN_5
 #define PWM_GPIO_Port GPIOA
 #define FR_DIAG_Pin GPIO_PIN_6

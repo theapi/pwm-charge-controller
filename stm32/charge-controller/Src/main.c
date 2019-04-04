@@ -128,7 +128,9 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+
+  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
@@ -169,7 +171,7 @@ int main(void)
 
 	  htim2.Instance->CCR1 = fade1;
 
-	  HAL_Delay(2);
+	  HAL_Delay(50);
 
 
 
