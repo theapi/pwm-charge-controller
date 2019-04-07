@@ -176,6 +176,24 @@ int main(void)
 //
 
 
+	  uint16_t val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+	  float mv = (float)val * 7.194244604;
+	  int batt = (int) mv;
+//	  int tx_len = snprintf(
+//		  tx_buffer,
+//		  TXBUFFERSIZE,
+//		  "msg_id:%d, val:%lu, batt:%lu\n",
+//		  msg_id++,
+//		  val,
+//		  batt
+//	  );
+	  if (batt > 4400) {
+		  htim2.Instance->CCR1 -= 1;
+	  } else if (batt < 4200){
+		  htim2.Instance->CCR1 += 1;
+	  }
+//	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+//	  HAL_Delay(250);
 
 
 	  //htim2.Instance->CCR1 = 162;
