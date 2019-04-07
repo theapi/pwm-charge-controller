@@ -36,8 +36,6 @@
         * Output
         * EVENT_OUT
         * EXTI
-        * Free pins are configured automatically as Analog (this feature is enabled through 
-        * the Code Generation settings)
 */
 void MX_GPIO_Init(void)
 {
@@ -47,7 +45,6 @@ void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_RESET);

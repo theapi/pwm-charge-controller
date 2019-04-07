@@ -40,7 +40,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "adc.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -51,6 +50,9 @@
 
 #include "string.h"
 #include "stdio.h"
+
+/* External ADC */
+#include "ads1015.h"
 
 /* USER CODE END Includes */
 
@@ -124,7 +126,6 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_ADC_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
@@ -132,10 +133,10 @@ int main(void)
   HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
-  /* Calibrate the ADC */
-  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
-  /* Start the adc */
-  HAL_ADC_Start(&hadc);
+//  /* Calibrate the ADC */
+//  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
+//  /* Start the adc */
+//  HAL_ADC_Start(&hadc);
 
   /* Start the PWM which is configured for 10.4kHz
    *
@@ -157,22 +158,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if (direction == 0) {
-		  fade1++;
-	  } else {
-		  fade1--;
-	  }
-
-	  if (fade1 == 254) {
-		  direction = 1;
-	  } else if (fade1 == 0) {
-		  direction = 0;
-	  }
-
-	  htim2.Instance->CCR1 = fade1;
-
-	  HAL_Delay(50);
-
+//	  if (direction == 0) {
+//		  fade1++;
+//	  } else {
+//		  fade1--;
+//	  }
+//
+//	  if (fade1 == 254) {
+//		  direction = 1;
+//	  } else if (fade1 == 0) {
+//		  direction = 0;
+//	  }
+//
+//	  htim2.Instance->CCR1 = fade1;
+//
+//	  HAL_Delay(50);
+//
 
 
 

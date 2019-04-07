@@ -82,10 +82,6 @@ void Error_Handler(void);
 #define LED_1_GPIO_Port GPIOC
 #define LED_2_Pin GPIO_PIN_15
 #define LED_2_GPIO_Port GPIOC
-#define PANEL_SENSE_Pin GPIO_PIN_0
-#define PANEL_SENSE_GPIO_Port GPIOA
-#define BATT_SENSE_Pin GPIO_PIN_1
-#define BATT_SENSE_GPIO_Port GPIOA
 #define LED_3_Pin GPIO_PIN_4
 #define LED_3_GPIO_Port GPIOA
 #define PWM_Pin GPIO_PIN_5
@@ -94,8 +90,6 @@ void Error_Handler(void);
 #define FR_DIAG_GPIO_Port GPIOA
 #define ADC_READY_Pin GPIO_PIN_7
 #define ADC_READY_GPIO_Port GPIOA
-#define CURRENT_SENSE_Pin GPIO_PIN_1
-#define CURRENT_SENSE_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
