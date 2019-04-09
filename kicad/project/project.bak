@@ -528,8 +528,6 @@ F 3 "" H 7600 3575 50  0001 C CNN
 	1    7600 3575
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6900 3175 7125 3175
 Text Label 6375 3925 0    50   ~ 0
 BATT_SENSE
 $Comp
@@ -567,7 +565,6 @@ F 3 "" H 7125 3775 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7125 3275 7125 3175
-Connection ~ 7125 3175
 Wire Wire Line
 	7125 3175 7600 3175
 $Comp
@@ -875,8 +872,6 @@ F 3 "~" H 1600 7275 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1400 7275 1400 7125
-Wire Wire Line
-	6900 3175 6900 3925
 Wire Wire Line
 	4550 3925 6900 3925
 Wire Wire Line
@@ -1293,4 +1288,9 @@ F 3 "" H 9000 1775 50  0001 C CNN
 	1    9000 1775
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6900 3925 6900 3575
+Wire Wire Line
+	6900 3575 7125 3575
+Connection ~ 7125 3575
 $EndSCHEMATC

@@ -144,10 +144,7 @@ int main(void)
    */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
-  uint32_t fade1 = 0;
-  uint8_t direction = 0;
-
-  htim2.Instance->CCR1 = 127;
+  htim2.Instance->CCR1 = 0;
 
   /* USER CODE END 2 */
 
@@ -158,82 +155,41 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  if (direction == 0) {
-//		  fade1++;
-//	  } else {
-//		  fade1--;
-//	  }
-//
-//	  if (fade1 == 254) {
-//		  direction = 1;
-//	  } else if (fade1 == 0) {
-//		  direction = 0;
-//	  }
-//
-//	  htim2.Instance->CCR1 = fade1;
-//
-//	  HAL_Delay(50);
-//
 
+
+	  // @ todo if power drops below 5v turn off external ADC & PWM
 
 	  uint16_t val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
 	  float mv = (float)val * 7.194244604;
 	  int batt = (int) mv;
+	  if (batt > 6000) {
+		  htim2.Instance->CCR1 = 0;
+	  } else if (batt > 5050) {
+		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
+		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
+		  if (htim2.Instance->CCR1 > 0) {
+			  htim2.Instance->CCR1 -= 1;
+		  }
+	  } else if (batt < 5000){
+		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
+		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+		  if (htim2.Instance->CCR1 < 253) {
+			  htim2.Instance->CCR1 += 1;
+		  }
+	  }
+
 	  int tx_len = snprintf(
 		  tx_buffer,
 		  TXBUFFERSIZE,
-		  "msg_id:%d, val:%lu, batt:%lu\n",
+		  "msg_id:%d, val:%lu, batt:%lu, ccr:%lu\n",
 		  msg_id++,
 		  val,
-		  batt
+		  batt,
+		  htim2.Instance->CCR1
 	  );
-//	  if (batt > 4400) {
-//		  htim2.Instance->CCR1 -= 1;
-//	  } else if (batt < 4200){
-//		  htim2.Instance->CCR1 += 1;
-//	  }
 	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
 	  HAL_Delay(250);
 
-
-	  //htim2.Instance->CCR1 = 162;
-
-
-
-//	  uint32_t val = 0;
-//	  for (uint8_t i = 0; i < 8; i++) {
-//		  HAL_ADC_PollForConversion(&hadc, 100);
-//		  val += HAL_ADC_GetValue(&hadc);
-//	  }
-//	  val = val / 8;
-
-//	  /*
-//	   * MAX adc = 4095
-//	   * 4095 = 3300mV
-//	   * 1 bit = 0.805860806mV
-//	   */
-//	  //HAL_ADC_PollForConversion(&hadc, 100);
-//	  uint32_t prev = batt;
-//	  //uint32_t val = HAL_ADC_GetValue(&hadc);
-//	  float mv = (float)val * 0.805860806;
-//	  batt = (int)mv;
-//	  int32_t diff = batt - prev;
-//	  int tx_len = snprintf(
-//		  tx_buffer,
-//		  TXBUFFERSIZE,
-//		  "msg_id:%d, val:%lu, batt:%lu, diff: %ld\n",
-//		  msg_id++,
-//		  val,
-//		  batt, diff
-//	  );
-//	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-//	  HAL_Delay(250);
-
-
-//	  htim2.Instance->CCR1 = 127;
-//	  HAL_Delay(30);
-//	  htim2.Instance->CCR1 = 0;
-//	  HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

@@ -1106,8 +1106,6 @@ Connection ~ 8900 4475
 Wire Wire Line
 	9150 4700 9150 4475
 Connection ~ 9150 4475
-Wire Wire Line
-	9150 4475 9650 4475
 NoConn ~ 4550 4125
 $Comp
 L theapi_Battery:Battery_Meter BT1
@@ -1135,8 +1133,6 @@ F 3 "" H 10800 5825 50  0001 C CNN
 	1    10800 5825
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	7600 2675 9650 2675
 Text Label 9325 4475 0    50   ~ 0
 OUT
 Text Label 7550 4325 0    50   ~ 0
@@ -1160,15 +1156,10 @@ F 3 "" H 3150 6425 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7300 4325 7950 4325
-Connection ~ 9650 4475
-Wire Wire Line
-	9650 4475 9850 4475
 Connection ~ 10600 4475
 Wire Wire Line
-	9650 2675 9650 4475
-Wire Wire Line
-	10150 4475 10600 4475
-Text Label 10225 4475 0    50   ~ 0
+	10150 4475 10225 4475
+Text Label 10300 4475 0    50   ~ 0
 DIODE
 $Comp
 L Connector:Conn_01x03_Male J3
@@ -1293,4 +1284,13 @@ Wire Wire Line
 Wire Wire Line
 	6900 3575 7125 3575
 Connection ~ 7125 3575
+Wire Wire Line
+	9150 4475 9850 4475
+Wire Wire Line
+	10225 2675 10225 4475
+Wire Wire Line
+	7600 2675 10225 2675
+Connection ~ 10225 4475
+Wire Wire Line
+	10225 4475 10600 4475
 $EndSCHEMATC
