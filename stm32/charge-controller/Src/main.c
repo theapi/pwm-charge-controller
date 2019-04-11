@@ -91,8 +91,11 @@ void SystemClock_Config(void);
 /* Buffer used for debug UART */
 char tx_buffer[TXBUFFERSIZE];
 uint8_t msg_id = 0;
-uint32_t batt = 0;
-
+//uint32_t batt = 0;
+//uint32_t ccr = 0;
+//uint32_t power = 100;
+//uint32_t alpha = 70;
+//uint32_t movingAverage = 0;
 
 /* USER CODE END 0 */
 
@@ -159,24 +162,44 @@ int main(void)
 
 	  // @ todo if power drops below 5v turn off external ADC & PWM
 
-	  uint16_t val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
-	  float mv = (float)val * 7.194244604;
-	  int batt = (int) mv;
-	  if (batt > 6000) {
+
+	  uint16_t val = 0;
+	  //htim2.Instance->CCR1 = 0;
+//	  //for (int x = 0; x < 500; x++) {
+//		  val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+//
+//		  // Exponential moving average filter
+//		  // value = (alpha * measurement + (POWER - alpha) * value )/ POWER;
+//		  movingAverage = (alpha * val + (power - alpha) * movingAverage) / power;
+//	  //}
+
+	  for (int x = 0; x < 8; x++) {
+		  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+	  }
+	  val = val / 8;
+
+
+	  //htim2.Instance->CCR1 = ccr;
+	  //int mv = (float) val * 7.194244604;
+	  int mv = (float)val * 6.59025788;
+	  //int batt = (int) movingAverage;
+
+	  if (val > 800) {
 		  htim2.Instance->CCR1 = 0;
-	  } else if (batt > 5050) {
+	  } else if (val > 700) {
 		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
 		  if (htim2.Instance->CCR1 > 0) {
 			  htim2.Instance->CCR1 -= 1;
 		  }
-	  } else if (batt < 5000){
+	  } else if (val < 690){
 		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
 		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 		  if (htim2.Instance->CCR1 < 253) {
 			  htim2.Instance->CCR1 += 1;
 		  }
 	  }
+	  //ccr = htim2.Instance->CCR1;
 
 	  int tx_len = snprintf(
 		  tx_buffer,
@@ -184,7 +207,7 @@ int main(void)
 		  "msg_id:%d, val:%lu, batt:%lu, ccr:%lu\n",
 		  msg_id++,
 		  val,
-		  batt,
+		  mv,
 		  htim2.Instance->CCR1
 	  );
 	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);

@@ -531,17 +531,6 @@ $EndComp
 Text Label 6375 3925 0    50   ~ 0
 BATT_SENSE
 $Comp
-L Device:R R10
-U 1 1 5C7CB5D6
-P 7125 3425
-F 0 "R10" H 7195 3471 50  0000 L CNN
-F 1 "10K" H 7195 3380 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7055 3425 50  0001 C CNN
-F 3 "~" H 7125 3425 50  0001 C CNN
-	1    7125 3425
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C9
 U 1 1 5C7CB72F
 P 7125 3675
@@ -563,8 +552,6 @@ F 3 "" H 7125 3775 50  0001 C CNN
 	1    7125 3775
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7125 3275 7125 3175
 Wire Wire Line
 	7125 3175 7600 3175
 $Comp
@@ -1283,7 +1270,6 @@ Wire Wire Line
 	6900 3925 6900 3575
 Wire Wire Line
 	6900 3575 7125 3575
-Connection ~ 7125 3575
 Wire Wire Line
 	9150 4475 9850 4475
 Wire Wire Line
@@ -1293,4 +1279,7 @@ Wire Wire Line
 Connection ~ 10225 4475
 Wire Wire Line
 	10225 4475 10600 4475
+Wire Wire Line
+	7125 3175 7125 3575
+Connection ~ 7125 3575
 $EndSCHEMATC
