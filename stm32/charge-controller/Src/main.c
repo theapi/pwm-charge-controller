@@ -134,6 +134,9 @@ int main(void)
 
 
   HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+  // This is the driver pin for conecting the battery to the adc.
+  // So the battery can always be connected but present no voltage
+  // to the adc until it is powered.
   HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
 //  /* Calibrate the ADC */
@@ -184,17 +187,21 @@ int main(void)
 	  int mv = (float)val * 6.59025788;
 	  //int batt = (int) movingAverage;
 
-	  if (val > 800) {
+	  if (val < 200) {
+		  // No battery connected
+		  htim2.Instance->CCR1 = 0;
+	  } else if (val > 800) {
+		  // Fully charged.
 		  htim2.Instance->CCR1 = 0;
 	  } else if (val > 700) {
 		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
+		  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
 		  if (htim2.Instance->CCR1 > 0) {
 			  htim2.Instance->CCR1 -= 1;
 		  }
 	  } else if (val < 690){
 		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-		  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+		  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 		  if (htim2.Instance->CCR1 < 253) {
 			  htim2.Instance->CCR1 += 1;
 		  }
