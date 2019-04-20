@@ -40,6 +40,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -130,6 +131,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   MX_I2C1_Init();
+  MX_ADC_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -139,8 +141,8 @@ int main(void)
   // to the adc until it is powered.
   HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
-//  /* Calibrate the ADC */
-//  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
+  /* Calibrate the ADC */
+  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
 //  /* Start the adc */
 //  HAL_ADC_Start(&hadc);
 
@@ -167,8 +169,25 @@ int main(void)
 	  // @ todo if power drops below 5v turn off external ADC & PWM
 	  // External ADC broken on AIN1 :(
 	  // uint16_t panel = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 1, ADS1015_GAIN_TWO);
-	  uint16_t panel = 1001;
-	  if (panel > 1000) {
+	  //uint16_t panel = 1001;
+
+	  HAL_ADC_Start(&hadc);
+
+	  HAL_ADC_PollForConversion(&hadc, 100);
+	  uint32_t panel = HAL_ADC_GetValue(&hadc);
+	  // 866 = 5039   = 5.818706697 per bit
+	  // 2233 = 12995 = 5.819525302 per bit
+	  uint32_t panel_mv = (panel * 5819) / 1000;
+
+	  HAL_ADC_PollForConversion(&hadc, 100);
+	  uint32_t battery = HAL_ADC_GetValue(&hadc);
+	  // 706 = 4084   = 5.7847025   per bit
+	  // 2225 = 12870 = 5.784269663 per bit
+	  uint32_t battery_mv = (battery * 5784) / 1000;
+
+
+	  HAL_ADC_Stop(&hadc);
+	  if (panel_mv > 5000) {
 
 		  //htim2.Instance->CCR1 = 0;
 	//	  //for (int x = 0; x < 500; x++) {
@@ -179,58 +198,58 @@ int main(void)
 	//		  movingAverage = (alpha * val + (power - alpha) * movingAverage) / power;
 	//	  //}
 
-		  for (int x = 0; x < 8; x++) {
-			  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
-		  }
-		  val = val / 8;
-
-
-		  //htim2.Instance->CCR1 = ccr;
-		  //int mv = (float) val * 7.194244604;
-		  mv = (float)val * 6.59025788;
-		  //int batt = (int) movingAverage;
-
-		  if (val < 200) {
+//		  for (int x = 0; x < 8; x++) {
+//			  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+//		  }
+//		  val = val / 8;
+//
+//
+//		  //htim2.Instance->CCR1 = ccr;
+//		  //int mv = (float) val * 7.194244604;
+//		  //mv = (float)val * 6.59025788;
+//		  //int batt = (int) movingAverage;
+//
+		  if (battery_mv < 4000) {
 			  // No battery connected
 			  htim2.Instance->CCR1 = 0;
 		  } else
-			  if (val > 1930) {
+			  if (battery_mv > 14400) {
 			  // Fully charged.
 			  htim2.Instance->CCR1 = 0;
-		  } else if (val > 1920) {
+		  } else if (battery_mv > 13550) {
 			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
 			  if (htim2.Instance->CCR1 > 0) {
 				  htim2.Instance->CCR1 -= 1;
 			  }
-		  } else if (val < 1915){
+		  } else if (battery_mv < 13490){
 			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
 			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 			  if (htim2.Instance->CCR1 < 253) {
 				  htim2.Instance->CCR1 += 1;
 			  }
 		  }
-		  //ccr = htim2.Instance->CCR1;
+//		  //ccr = htim2.Instance->CCR1;
 	  } else {
 		  // Not enough to do charging.
 		  htim2.Instance->CCR1 = 0;
 	  }
 
-	  HAL_Delay(10);
+	  //HAL_Delay(100);
 
 //
-//	  int tx_len = snprintf(
-//		  tx_buffer,
-//		  TXBUFFERSIZE,
-//		  "msg_id:%d, val:%lu, batt:%lu, panel:%lu, ccr:%lu \n",
-//		  msg_id++,
-//		  val,
-//		  mv,
-//		  panel,
-//		  htim2.Instance->CCR1
-//	  );
-//	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-//	  HAL_Delay(250);
+	  int tx_len = snprintf(
+		  tx_buffer,
+		  TXBUFFERSIZE,
+		  "msg_id:%d, val:%lu, batt:%lu, panel:%lu, ccr:%lu \n",
+		  msg_id++,
+		  val,
+		  battery_mv,
+		  panel_mv,
+		  htim2.Instance->CCR1
+	  );
+	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+	  HAL_Delay(250);
 
   }
   /* USER CODE END 3 */
