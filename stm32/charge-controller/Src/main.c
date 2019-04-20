@@ -161,64 +161,76 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
+	  uint16_t val = 0;
+	  int mv = 0;
 
 	  // @ todo if power drops below 5v turn off external ADC & PWM
+	  // External ADC broken on AIN1 :(
+	  // uint16_t panel = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 1, ADS1015_GAIN_TWO);
+	  uint16_t panel = 1001;
+	  if (panel > 1000) {
+
+		  //htim2.Instance->CCR1 = 0;
+	//	  //for (int x = 0; x < 500; x++) {
+	//		  val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+	//
+	//		  // Exponential moving average filter
+	//		  // value = (alpha * measurement + (POWER - alpha) * value )/ POWER;
+	//		  movingAverage = (alpha * val + (power - alpha) * movingAverage) / power;
+	//	  //}
+
+		  for (int x = 0; x < 8; x++) {
+			  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+		  }
+		  val = val / 8;
 
 
-	  uint16_t val = 0;
-	  //htim2.Instance->CCR1 = 0;
-//	  //for (int x = 0; x < 500; x++) {
-//		  val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
+		  //htim2.Instance->CCR1 = ccr;
+		  //int mv = (float) val * 7.194244604;
+		  mv = (float)val * 6.59025788;
+		  //int batt = (int) movingAverage;
+
+		  if (val < 200) {
+			  // No battery connected
+			  htim2.Instance->CCR1 = 0;
+		  } else
+			  if (val > 1930) {
+			  // Fully charged.
+			  htim2.Instance->CCR1 = 0;
+		  } else if (val > 1920) {
+			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
+			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
+			  if (htim2.Instance->CCR1 > 0) {
+				  htim2.Instance->CCR1 -= 1;
+			  }
+		  } else if (val < 1915){
+			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
+			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+			  if (htim2.Instance->CCR1 < 253) {
+				  htim2.Instance->CCR1 += 1;
+			  }
+		  }
+		  //ccr = htim2.Instance->CCR1;
+	  } else {
+		  // Not enough to do charging.
+		  htim2.Instance->CCR1 = 0;
+	  }
+
+	  HAL_Delay(10);
+
 //
-//		  // Exponential moving average filter
-//		  // value = (alpha * measurement + (POWER - alpha) * value )/ POWER;
-//		  movingAverage = (alpha * val + (power - alpha) * movingAverage) / power;
-//	  //}
-
-	  for (int x = 0; x < 8; x++) {
-		  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
-	  }
-	  val = val / 8;
-
-
-	  //htim2.Instance->CCR1 = ccr;
-	  //int mv = (float) val * 7.194244604;
-	  int mv = (float)val * 6.59025788;
-	  //int batt = (int) movingAverage;
-
-	  if (val < 200) {
-		  // No battery connected
-		  htim2.Instance->CCR1 = 0;
-	  } else if (val > 800) {
-		  // Fully charged.
-		  htim2.Instance->CCR1 = 0;
-	  } else if (val > 700) {
-		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-		  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
-		  if (htim2.Instance->CCR1 > 0) {
-			  htim2.Instance->CCR1 -= 1;
-		  }
-	  } else if (val < 690){
-		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-		  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
-		  if (htim2.Instance->CCR1 < 253) {
-			  htim2.Instance->CCR1 += 1;
-		  }
-	  }
-	  //ccr = htim2.Instance->CCR1;
-
-	  int tx_len = snprintf(
-		  tx_buffer,
-		  TXBUFFERSIZE,
-		  "msg_id:%d, val:%lu, batt:%lu, ccr:%lu\n",
-		  msg_id++,
-		  val,
-		  mv,
-		  htim2.Instance->CCR1
-	  );
-	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-	  HAL_Delay(250);
+//	  int tx_len = snprintf(
+//		  tx_buffer,
+//		  TXBUFFERSIZE,
+//		  "msg_id:%d, val:%lu, batt:%lu, panel:%lu, ccr:%lu \n",
+//		  msg_id++,
+//		  val,
+//		  mv,
+//		  panel,
+//		  htim2.Instance->CCR1
+//	  );
+//	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+//	  HAL_Delay(250);
 
   }
   /* USER CODE END 3 */

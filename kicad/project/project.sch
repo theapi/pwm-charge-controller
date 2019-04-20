@@ -859,8 +859,6 @@ $EndComp
 Wire Wire Line
 	1400 7275 1400 7125
 Wire Wire Line
-	4300 3925 4550 3925
-Wire Wire Line
 	6000 3075 6000 3150
 Wire Wire Line
 	4550 3825 5725 3825
@@ -1264,9 +1262,6 @@ F 3 "http://www.vishay.com/docs/66709/si2319cd.pdf" H 9825 2775 50  0001 L CNN
 	1    9825 2775
 	0    -1   -1   0   
 $EndComp
-Connection ~ 4550 3925
-Wire Wire Line
-	4550 3925 6650 3925
 Wire Wire Line
 	6850 4225 6850 4075
 Wire Wire Line
@@ -1327,4 +1322,6 @@ Wire Wire Line
 Wire Wire Line
 	9925 2975 9825 2975
 Connection ~ 9825 2975
+Wire Wire Line
+	4550 3925 6650 3925
 $EndSCHEMATC

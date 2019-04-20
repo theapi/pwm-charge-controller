@@ -1246,7 +1246,7 @@ Wire Wire Line
 Wire Wire Line
 	9150 4475 9850 4475
 Wire Wire Line
-	10225 2675 10225 4475
+	10225 2675 10225 2975
 Connection ~ 10225 4475
 Wire Wire Line
 	10225 4475 10600 4475
@@ -1278,13 +1278,13 @@ Wire Wire Line
 $Comp
 L Device:R R10
 U 1 1 5CB53F25
-P 9050 2825
-F 0 "R10" H 8925 2800 50  0000 C CNN
-F 1 "10K" H 8900 2875 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8980 2825 50  0001 C CNN
-F 3 "~" H 9050 2825 50  0001 C CNN
-	1    9050 2825
-	-1   0    0    1   
+P 10075 2975
+F 0 "R10" V 10150 2975 50  0000 C CNN
+F 1 "10K" V 10075 2975 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10005 2975 50  0001 C CNN
+F 3 "~" H 10075 2975 50  0001 C CNN
+	1    10075 2975
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Transistor_FET:2N7002 Q2
@@ -1312,19 +1312,19 @@ Connection ~ 8625 3500
 Wire Wire Line
 	9825 2975 9825 3050
 Wire Wire Line
-	7350 2675 9050 2675
-Wire Wire Line
-	9050 2675 9625 2675
-Connection ~ 9050 2675
-Wire Wire Line
 	10025 2675 10225 2675
-Wire Wire Line
-	9050 2975 9825 2975
-Connection ~ 9825 2975
 Wire Wire Line
 	9225 3250 8675 3250
 Wire Wire Line
 	8675 3250 8675 2950
 Wire Wire Line
 	8675 2950 7825 2950
+Connection ~ 10225 2975
+Wire Wire Line
+	10225 2975 10225 4475
+Wire Wire Line
+	7350 2675 9625 2675
+Wire Wire Line
+	9925 2975 9825 2975
+Connection ~ 9825 2975
 $EndSCHEMATC
