@@ -66,6 +66,7 @@
 /* USER CODE BEGIN PD */
 
 #define TXBUFFERSIZE 128
+#define READING_INDEX_LENGTH 255
 
 /* USER CODE END PD */
 
@@ -97,6 +98,14 @@ uint8_t msg_id = 0;
 //uint32_t power = 100;
 //uint32_t alpha = 70;
 //uint32_t movingAverage = 0;
+
+
+uint32_t reading_index = 0;
+uint32_t batt_readings[READING_INDEX_LENGTH] = { 0 };
+uint32_t panel_readings[READING_INDEX_LENGTH] = { 0 };
+uint32_t tx_last;
+uint32_t panel_mv = 0;
+uint32_t battery_mv = 0;
 
 /* USER CODE END 0 */
 
@@ -163,60 +172,46 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  uint16_t val = 0;
-	  int mv = 0;
-
-	  // @ todo if power drops below 5v turn off external ADC & PWM
-	  // External ADC broken on AIN1 :(
-	  // uint16_t panel = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 1, ADS1015_GAIN_TWO);
-	  //uint16_t panel = 1001;
 
 	  HAL_ADC_Start(&hadc);
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t panel = HAL_ADC_GetValue(&hadc);
+	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
+	  panel_readings[reading_index] = panel_val;
+	  uint32_t panel_total = 0;
+	  for (uint32_t i = 0; i < READING_INDEX_LENGTH; i++) {
+		  panel_total += panel_readings[i];
+	  }
+	  uint32_t panel = panel_total / READING_INDEX_LENGTH;
 	  // 866 = 5039   = 5.818706697 per bit
 	  // 2233 = 12995 = 5.819525302 per bit
-	  uint32_t panel_mv = (panel * 5819) / 1000;
+	  panel_mv = (panel * 5819) / 1000;
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t battery = HAL_ADC_GetValue(&hadc);
+	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
+	  batt_readings[reading_index] = batt_val;
+	  uint32_t batt_total = 0;
+	  for (uint32_t i = 0; i < READING_INDEX_LENGTH; i++) {
+		  batt_total += batt_readings[i];
+	  }
+	  uint32_t battery = batt_total / READING_INDEX_LENGTH;
+
 	  // 706 = 4084   = 5.7847025   per bit
 	  // 2225 = 12870 = 5.784269663 per bit
-	  uint32_t battery_mv = (battery * 5784) / 1000;
+	  battery_mv = (battery * 5784) / 1000;
 
+	  if (reading_index < READING_INDEX_LENGTH) {
+		  reading_index++;
+	  } else {
+		  reading_index = 0;
+	  }
 
 	  HAL_ADC_Stop(&hadc);
-	  if (panel_mv > 5000) {
 
-		  //htim2.Instance->CCR1 = 0;
-	//	  //for (int x = 0; x < 500; x++) {
-	//		  val = ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
-	//
-	//		  // Exponential moving average filter
-	//		  // value = (alpha * measurement + (POWER - alpha) * value )/ POWER;
-	//		  movingAverage = (alpha * val + (power - alpha) * movingAverage) / power;
-	//	  //}
 
-//		  for (int x = 0; x < 8; x++) {
-//			  val += ADS1015_SingleEnded(&hi2c1, ADS1015_ADDRESS, 0, ADS1015_GAIN_TWO);
-//		  }
-//		  val = val / 8;
-//
-//
-//		  //htim2.Instance->CCR1 = ccr;
-//		  //int mv = (float) val * 7.194244604;
-//		  //mv = (float)val * 6.59025788;
-//		  //int batt = (int) movingAverage;
-//
-		  if (battery_mv < 4000) {
-			  // No battery connected
-			  htim2.Instance->CCR1 = 0;
-		  } else
-			  if (battery_mv > 14400) {
-			  // Fully charged.
-			  htim2.Instance->CCR1 = 0;
-		  } else if (battery_mv > 13550) {
+
+	  if (panel_mv > 12000) {
+		  if (battery_mv > 13550) {
 			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
 			  if (htim2.Instance->CCR1 > 0) {
@@ -229,27 +224,30 @@ int main(void)
 				  htim2.Instance->CCR1 += 1;
 			  }
 		  }
-//		  //ccr = htim2.Instance->CCR1;
 	  } else {
 		  // Not enough to do charging.
 		  htim2.Instance->CCR1 = 0;
 	  }
 
-	  //HAL_Delay(100);
-
-//
-	  int tx_len = snprintf(
-		  tx_buffer,
-		  TXBUFFERSIZE,
-		  "msg_id:%d, val:%lu, batt:%lu, panel:%lu, ccr:%lu \n",
-		  msg_id++,
-		  val,
-		  battery_mv,
-		  panel_mv,
-		  htim2.Instance->CCR1
-	  );
-	  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
 	  HAL_Delay(250);
+
+
+	  uint32_t now = HAL_GetTick();
+	  if (now - tx_last >= 250) {
+		  tx_last = now;
+		  int tx_len = snprintf(
+				  tx_buffer,
+				  TXBUFFERSIZE,
+				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
+				  msg_id++,
+				  battery_mv,
+				  panel_mv,
+				  htim2.Instance->CCR1
+		  );
+		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+	  }
+
+
 
   }
   /* USER CODE END 3 */
