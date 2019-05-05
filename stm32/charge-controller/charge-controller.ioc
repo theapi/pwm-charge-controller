@@ -1,7 +1,8 @@
 #MicroXplorer Configuration settings - do not modify
+ADC.ClockPrescaler=ADC_CLOCK_SYNC_PCLK_DIV2
 ADC.ContinuousConvMode=ENABLE
-ADC.IPParameters=ContinuousConvMode,SamplingTime
-ADC.SamplingTime=ADC_SAMPLETIME_160CYCLES_5
+ADC.IPParameters=ContinuousConvMode,SamplingTime,ClockPrescaler
+ADC.SamplingTime=ADC_SAMPLETIME_79CYCLES_5
 File.Version=6
 I2C1.IPParameters=Timing
 I2C1.Timing=0x2000090E

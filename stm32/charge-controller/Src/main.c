@@ -66,7 +66,7 @@
 /* USER CODE BEGIN PD */
 
 #define TXBUFFERSIZE 128
-#define READING_INDEX_LENGTH 255
+#define READING_INDEX_LENGTH 4
 
 /* USER CODE END PD */
 
@@ -100,9 +100,6 @@ uint8_t msg_id = 0;
 //uint32_t movingAverage = 0;
 
 
-uint32_t reading_index = 0;
-uint32_t batt_readings[READING_INDEX_LENGTH] = { 0 };
-uint32_t panel_readings[READING_INDEX_LENGTH] = { 0 };
 uint32_t tx_last;
 uint32_t panel_mv = 0;
 uint32_t battery_mv = 0;
@@ -177,47 +174,27 @@ int main(void)
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
 	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
-	  panel_readings[reading_index] = panel_val;
-	  uint32_t panel_total = 0;
-	  for (uint32_t i = 0; i < READING_INDEX_LENGTH; i++) {
-		  panel_total += panel_readings[i];
-	  }
-	  uint32_t panel = panel_total / READING_INDEX_LENGTH;
 	  // 866 = 5039   = 5.818706697 per bit
 	  // 2233 = 12995 = 5.819525302 per bit
-	  panel_mv = (panel * 5819) / 1000;
+	  panel_mv = (panel_val * 5819) / 1000;
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
 	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
-	  batt_readings[reading_index] = batt_val;
-	  uint32_t batt_total = 0;
-	  for (uint32_t i = 0; i < READING_INDEX_LENGTH; i++) {
-		  batt_total += batt_readings[i];
-	  }
-	  uint32_t battery = batt_total / READING_INDEX_LENGTH;
-
 	  // 706 = 4084   = 5.7847025   per bit
 	  // 2225 = 12870 = 5.784269663 per bit
-	  battery_mv = (battery * 5784) / 1000;
-
-	  if (reading_index < READING_INDEX_LENGTH) {
-		  reading_index++;
-	  } else {
-		  reading_index = 0;
-	  }
+	  battery_mv = (batt_val * 5784) / 1000;
 
 	  HAL_ADC_Stop(&hadc);
 
-
-
 	  if (panel_mv > 12000) {
-		  if (battery_mv > 13550) {
+		  //Allow for the diode drop.
+		  if (battery_mv > 13750) {
 			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
 			  if (htim2.Instance->CCR1 > 0) {
 				  htim2.Instance->CCR1 -= 1;
 			  }
-		  } else if (battery_mv < 13490){
+		  } else if (battery_mv < 13650){
 			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
 			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 			  if (htim2.Instance->CCR1 < 253) {
@@ -229,23 +206,23 @@ int main(void)
 		  htim2.Instance->CCR1 = 0;
 	  }
 
-	  HAL_Delay(250);
+	  HAL_Delay(10);
 
 
-	  uint32_t now = HAL_GetTick();
-	  if (now - tx_last >= 250) {
-		  tx_last = now;
-		  int tx_len = snprintf(
-				  tx_buffer,
-				  TXBUFFERSIZE,
-				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
-				  msg_id++,
-				  battery_mv,
-				  panel_mv,
-				  htim2.Instance->CCR1
-		  );
-		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-	  }
+//	  uint32_t now = HAL_GetTick();
+//	  if (now - tx_last >= 250) {
+//		  tx_last = now;
+//		  int tx_len = snprintf(
+//				  tx_buffer,
+//				  TXBUFFERSIZE,
+//				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
+//				  msg_id++,
+//				  battery_mv,
+//				  panel_mv,
+//				  htim2.Instance->CCR1
+//		  );
+//		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+//	  }
 
 
 
