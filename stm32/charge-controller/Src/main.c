@@ -206,7 +206,7 @@ int main(void)
 		  htim2.Instance->CCR1 = 0;
 	  }
 
-	  HAL_Delay(10);
+	  HAL_Delay(1);
 
 
 //	  uint32_t now = HAL_GetTick();
