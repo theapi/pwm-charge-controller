@@ -86,10 +86,6 @@ void Error_Handler(void);
 #define LED_3_GPIO_Port GPIOA
 #define PWM_Pin GPIO_PIN_5
 #define PWM_GPIO_Port GPIOA
-#define FR_DIAG_Pin GPIO_PIN_6
-#define FR_DIAG_GPIO_Port GPIOA
-#define ADC_READY_Pin GPIO_PIN_7
-#define ADC_READY_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
