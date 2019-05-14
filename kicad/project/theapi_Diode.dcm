@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP BAW56
+D  High-speed switching diodes 2 pair Com A
+K diode
+F http://rohmfs.rohm.com/en/products/databook/datasheet/discrete/diode/switching/ump11n.pdf
+$ENDCMP
+#
+#End Doc Library
