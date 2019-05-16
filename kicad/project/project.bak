@@ -1010,7 +1010,7 @@ L Device:R R7
 U 1 1 5CDEB9D9
 P 8325 4575
 F 0 "R7" V 8118 4575 50  0000 C CNN
-F 1 "4K7" V 8209 4575 50  0000 C CNN
+F 1 "1K" V 8209 4575 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8255 4575 50  0001 C CNN
 F 3 "~" H 8325 4575 50  0001 C CNN
 	1    8325 4575
@@ -1022,7 +1022,7 @@ U 1 1 5CDEBEE6
 P 9075 4575
 F 0 "Q3" H 9281 4529 50  0000 L CNN
 F 1 "IRF3205" H 9281 4620 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220F-3_Horizontal_TabUp" H 9325 4500 50  0001 L CIN
+F 2 "theapi:TO-220F-3_Horizontal_TabUp" H 9325 4500 50  0001 L CIN
 F 3 "http://www.irf.com/product-info/datasheets/data/irf3205.pdf" H 9075 4575 50  0001 L CNN
 	1    9075 4575
 	1    0    0    1   
@@ -1053,4 +1053,6 @@ Wire Wire Line
 	4275 4875 5925 4875
 Text Label 2050 1200 0    50   ~ 0
 REG_IN
+Text Notes 8075 4775 0    39   Italic 0
+EMI surpression\n(not strictly needed)
 $EndSCHEMATC

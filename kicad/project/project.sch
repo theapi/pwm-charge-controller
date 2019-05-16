@@ -590,39 +590,6 @@ F 3 "~" H 2275 6625 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H2
-U 1 1 5C8B1717
-P 3300 6625
-F 0 "H2" H 3400 6676 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3400 6585 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 3300 6625 50  0001 C CNN
-F 3 "~" H 3300 6625 50  0001 C CNN
-	1    3300 6625
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H3
-U 1 1 5C8B74C5
-P 2275 7250
-F 0 "H3" H 2375 7301 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2375 7210 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 2275 7250 50  0001 C CNN
-F 3 "~" H 2275 7250 50  0001 C CNN
-	1    2275 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H4
-U 1 1 5C8B74CC
-P 3300 7250
-F 0 "H4" H 3400 7301 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3400 7210 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 3300 7250 50  0001 C CNN
-F 3 "~" H 3300 7250 50  0001 C CNN
-	1    3300 7250
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR023
 U 1 1 5C8BA2A9
 P 2275 6725
@@ -631,39 +598,6 @@ F 1 "GND" H 2280 6552 50  0000 C CNN
 F 2 "" H 2275 6725 50  0001 C CNN
 F 3 "" H 2275 6725 50  0001 C CNN
 	1    2275 6725
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR024
-U 1 1 5C8BA36C
-P 3300 6725
-F 0 "#PWR024" H 3300 6475 50  0001 C CNN
-F 1 "GND" H 3305 6552 50  0000 C CNN
-F 2 "" H 3300 6725 50  0001 C CNN
-F 3 "" H 3300 6725 50  0001 C CNN
-	1    3300 6725
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR026
-U 1 1 5C8BA3D3
-P 3300 7350
-F 0 "#PWR026" H 3300 7100 50  0001 C CNN
-F 1 "GND" H 3305 7177 50  0000 C CNN
-F 2 "" H 3300 7350 50  0001 C CNN
-F 3 "" H 3300 7350 50  0001 C CNN
-	1    3300 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR025
-U 1 1 5C8BA43A
-P 2275 7350
-F 0 "#PWR025" H 2275 7100 50  0001 C CNN
-F 1 "GND" H 2280 7177 50  0000 C CNN
-F 2 "" H 2275 7350 50  0001 C CNN
-F 3 "" H 2275 7350 50  0001 C CNN
-	1    2275 7350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1010,7 +944,7 @@ L Device:R R7
 U 1 1 5CDEB9D9
 P 8325 4575
 F 0 "R7" V 8118 4575 50  0000 C CNN
-F 1 "4K7" V 8209 4575 50  0000 C CNN
+F 1 "1K" V 8209 4575 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8255 4575 50  0001 C CNN
 F 3 "~" H 8325 4575 50  0001 C CNN
 	1    8325 4575
@@ -1053,4 +987,6 @@ Wire Wire Line
 	4275 4875 5925 4875
 Text Label 2050 1200 0    50   ~ 0
 REG_IN
+Text Notes 8075 4775 0    39   Italic 0
+EMI surpression\n(not strictly needed)
 $EndSCHEMATC
