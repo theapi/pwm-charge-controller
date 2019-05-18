@@ -1,0 +1,30 @@
+* Z:\home\peter\repos\pwm-charge-controller\ltspice\pwm5.asc
+D1 battery N001 1N4148
+D2 N001 N002 1N4148
+D3 N002 pump_out 1N4148
+C1 N001 pump1 47nf
+C2 N002 pump2 47nf
+C3 pump_out 0 1µf
+V1 battery 0 12
+V2 pump1 0 PULSE(0 3.3 0 100ns 100ns 15us 32us)
+V3 pump2 0 PULSE(3.3 0 0 100ns 100ns 15us 32us)
+Q1 N003 pwm N004 0 2N3904
+Q3 Q2 N003 pump_out 0 2N3906
+R1 N004 0 220k
+R2 pump_out N003 220k
+V4 pwm 0 PULSE(3.3 0 0 100ns 100ns 500us 1000us)
+Q2 battery Q2 drive 0 2N3906
+D4 Q2 drive 1N4148
+R3 Q2 battery 220k
+R4 drive mosfet 220
+V5 Solar 0 18
+XU1 mosfet Solar Batt_Charge irf3205
+.model D D
+.lib C:\users\peter\My Documents\LTspiceXVII\lib\cmp\standard.dio
+.model NPN NPN
+.model PNP PNP
+.lib C:\users\peter\My Documents\LTspiceXVII\lib\cmp\standard.bjt
+.tran 0 10ms 5ms
+.lib Z:\home\peter\Downloads\irf3205.spi
+.backanno
+.end
