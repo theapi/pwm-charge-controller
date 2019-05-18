@@ -514,12 +514,12 @@ Power Supply
 $Comp
 L Device:Solar_Cells SC1
 U 1 1 5C80516E
-P 9375 3325
-F 0 "SC1" V 9100 3300 50  0000 L CNN
-F 1 "Solar_Panel" V 9175 3025 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 3385 50  0001 C CNN
-F 3 "~" V 9375 3385 50  0001 C CNN
-	1    9375 3325
+P 9375 2975
+F 0 "SC1" V 9100 2950 50  0000 L CNN
+F 1 "Solar_Panel" V 9175 2675 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 3035 50  0001 C CNN
+F 3 "~" V 9375 3035 50  0001 C CNN
+	1    9375 2975
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
@@ -527,12 +527,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR06
 U 1 1 5C80809F
-P 1025 1850
-F 0 "#PWR06" H 1025 1600 50  0001 C CNN
-F 1 "GND" H 1030 1677 50  0000 C CNN
-F 2 "" H 1025 1850 50  0001 C CNN
-F 3 "" H 1025 1850 50  0001 C CNN
-	1    1025 1850
+P 9575 5800
+F 0 "#PWR06" H 9575 5550 50  0001 C CNN
+F 1 "GND" H 9580 5627 50  0000 C CNN
+F 2 "" H 9575 5800 50  0001 C CNN
+F 3 "" H 9575 5800 50  0001 C CNN
+	1    9575 5800
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -603,13 +603,13 @@ Wire Wire Line
 $Comp
 L Device:Battery BT1
 U 1 1 5CDC3C72
-P 1025 1650
-F 0 "BT1" H 1133 1696 50  0000 L CNN
-F 1 "Battery" H 1133 1605 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 1025 1710 50  0001 C CNN
-F 3 "~" V 1025 1710 50  0001 C CNN
-	1    1025 1650
-	1    0    0    -1  
+P 9375 5800
+F 0 "BT1" V 9575 5800 50  0000 L CNN
+F 1 "Battery" V 9500 5675 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 5860 50  0001 C CNN
+F 3 "~" V 9375 5860 50  0001 C CNN
+	1    9375 5800
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Regulator_Linear:LT1129-3.3_SOT223 U1
@@ -704,7 +704,7 @@ Wire Wire Line
 Wire Wire Line
 	1500 1200 1650 1200
 Connection ~ 1650 1200
-Text Label 1025 1200 2    50   ~ 0
+Text Label 1025 1450 2    50   ~ 0
 BATT
 $Comp
 L Device:C C5
@@ -783,12 +783,8 @@ Wire Wire Line
 	7125 1225 7675 1225
 Text Label 5675 3575 0    50   ~ 0
 BATT
-Text Label 9175 4150 0    50   ~ 0
+Text Label 4750 2975 0    50   ~ 0
 SOLAR
-Text Label 4250 3200 0    50   ~ 0
-SOLAR
-Wire Wire Line
-	4250 3200 4250 3325
 $Comp
 L Device:R R3
 U 1 1 5CDCBDC3
@@ -896,10 +892,8 @@ Wire Wire Line
 	7375 4575 6800 4575
 Wire Wire Line
 	6800 4575 6800 4375
-Text Label 7375 5925 0    50   ~ 0
+Text Label 9175 5225 0    50   ~ 0
 BATT
-Wire Wire Line
-	7375 5925 7375 5800
 Wire Wire Line
 	7375 5400 7375 5250
 Connection ~ 7375 5250
@@ -907,7 +901,6 @@ Wire Wire Line
 	7925 5450 7925 5800
 Wire Wire Line
 	7925 5800 7375 5800
-Connection ~ 7375 5800
 Wire Wire Line
 	7375 5800 7375 5700
 $Comp
@@ -963,12 +956,12 @@ Connection ~ 7925 5800
 $Comp
 L power:GND #PWR019
 U 1 1 5CDF634C
-P 9725 3550
-F 0 "#PWR019" H 9725 3300 50  0001 C CNN
-F 1 "GND" H 9730 3377 50  0000 C CNN
-F 2 "" H 9725 3550 50  0001 C CNN
-F 3 "" H 9725 3550 50  0001 C CNN
-	1    9725 3550
+P 9725 3200
+F 0 "#PWR019" H 9725 2950 50  0001 C CNN
+F 1 "GND" H 9730 3027 50  0000 C CNN
+F 2 "" H 9725 3200 50  0001 C CNN
+F 3 "" H 9725 3200 50  0001 C CNN
+	1    9725 3200
 	-1   0    0    -1  
 $EndComp
 Connection ~ 4275 4875
@@ -988,15 +981,21 @@ Wire Wire Line
 	4900 4075 5125 4075
 Connection ~ 5125 4075
 Wire Wire Line
-	9175 3325 9175 4375
+	9575 2975 9725 2975
 Wire Wire Line
-	9575 3325 9725 3325
-Wire Wire Line
-	9725 3325 9725 3550
+	9725 2975 9725 3200
 Text Notes 6900 4025 0    39   ~ 0
 Drive mosfet gate up \nto charge pump voltage
 Text Notes 7975 5575 0    39   ~ 0
 Drive mosfet gate down\nto battery voltage
 Text Notes 9625 4575 0    39   ~ 0
 or IRLB8743PBF
+Wire Wire Line
+	4250 2975 9175 2975
+Wire Wire Line
+	4250 2975 4250 3325
+Connection ~ 9175 2975
+Wire Wire Line
+	9175 2975 9175 4375
+Connection ~ 9175 5800
 $EndSCHEMATC

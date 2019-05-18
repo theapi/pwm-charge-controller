@@ -527,12 +527,12 @@ Wire Wire Line
 $Comp
 L power:GND #PWR06
 U 1 1 5C80809F
-P 1025 1850
-F 0 "#PWR06" H 1025 1600 50  0001 C CNN
-F 1 "GND" H 1030 1677 50  0000 C CNN
-F 2 "" H 1025 1850 50  0001 C CNN
-F 3 "" H 1025 1850 50  0001 C CNN
-	1    1025 1850
+P 9750 6050
+F 0 "#PWR06" H 9750 5800 50  0001 C CNN
+F 1 "GND" H 9755 5877 50  0000 C CNN
+F 2 "" H 9750 6050 50  0001 C CNN
+F 3 "" H 9750 6050 50  0001 C CNN
+	1    9750 6050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -603,13 +603,13 @@ Wire Wire Line
 $Comp
 L Device:Battery BT1
 U 1 1 5CDC3C72
-P 1025 1650
-F 0 "BT1" H 1133 1696 50  0000 L CNN
-F 1 "Battery" H 1133 1605 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 1025 1710 50  0001 C CNN
-F 3 "~" V 1025 1710 50  0001 C CNN
-	1    1025 1650
-	1    0    0    -1  
+P 9375 5800
+F 0 "BT1" V 9575 5800 50  0000 L CNN
+F 1 "Battery" V 9500 5675 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 5860 50  0001 C CNN
+F 3 "~" V 9375 5860 50  0001 C CNN
+	1    9375 5800
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Regulator_Linear:LT1129-3.3_SOT223 U1
@@ -704,7 +704,7 @@ Wire Wire Line
 Wire Wire Line
 	1500 1200 1650 1200
 Connection ~ 1650 1200
-Text Label 1025 1200 2    50   ~ 0
+Text Label 1025 1450 2    50   ~ 0
 BATT
 $Comp
 L Device:C C5
@@ -892,10 +892,8 @@ Wire Wire Line
 	7375 4575 6800 4575
 Wire Wire Line
 	6800 4575 6800 4375
-Text Label 7375 5925 0    50   ~ 0
+Text Label 9175 5225 0    50   ~ 0
 BATT
-Wire Wire Line
-	7375 5925 7375 5800
 Wire Wire Line
 	7375 5400 7375 5250
 Connection ~ 7375 5250
@@ -903,7 +901,6 @@ Wire Wire Line
 	7925 5450 7925 5800
 Wire Wire Line
 	7925 5800 7375 5800
-Connection ~ 7375 5800
 Wire Wire Line
 	7375 5800 7375 5700
 $Comp
@@ -1000,4 +997,9 @@ Wire Wire Line
 Connection ~ 9175 2975
 Wire Wire Line
 	9175 2975 9175 4375
+Connection ~ 9175 5800
+Wire Wire Line
+	9575 5800 9750 5800
+Wire Wire Line
+	9750 5800 9750 6050
 $EndSCHEMATC

@@ -1762,7 +1762,7 @@
   )
 
   (module theapi:TheApiLogoSmall (layer B.Cu) (tedit 5CE0731B) (tstamp 5CE07C9B)
-    (at 145.19 76.31 180)
+    (at 145.2 77.62 180)
     (fp_text reference REF** (at 2.34 10.9 180) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
