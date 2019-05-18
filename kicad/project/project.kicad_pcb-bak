@@ -1659,7 +1659,7 @@
     (arrow2a (pts (xy 125.13 133.69) (xy 126.256504 134.276421)))
     (arrow2b (pts (xy 125.13 133.69) (xy 126.256504 133.103579)))
   )
-  (gr_line (start 125.13 63.59) (end 125.13 109.69) (layer Edge.Cuts) (width 0.15))
+  (gr_line (start 125.13 63.69) (end 125.13 109.69) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 148.13 63.69) (end 148.13 109.69) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 125.13 63.69) (end 148.13 63.69) (layer Edge.Cuts) (width 0.15))
   (gr_text "TAB UP" (at 137 88.75 180) (layer B.SilkS)
