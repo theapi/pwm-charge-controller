@@ -280,39 +280,39 @@ LED_1
 $Comp
 L Device:R R6
 U 1 1 5C7C5AEB
-P 5600 3975
-F 0 "R6" H 5670 4021 50  0000 L CNN
-F 1 "100K" H 5670 3930 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5530 3975 50  0001 C CNN
-F 3 "~" H 5600 3975 50  0001 C CNN
-	1    5600 3975
+P 5675 4325
+F 0 "R6" H 5745 4371 50  0000 L CNN
+F 1 "100K" H 5745 4280 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5605 4325 50  0001 C CNN
+F 3 "~" H 5675 4325 50  0001 C CNN
+	1    5675 4325
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R2
 U 1 1 5C7C5BA1
-P 5600 3475
-F 0 "R2" H 5670 3521 50  0000 L CNN
-F 1 "620K" H 5670 3430 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5530 3475 50  0001 C CNN
-F 3 "~" H 5600 3475 50  0001 C CNN
-	1    5600 3475
+P 5675 3825
+F 0 "R2" H 5745 3871 50  0000 L CNN
+F 1 "620K" H 5745 3780 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 5605 3825 50  0001 C CNN
+F 3 "~" H 5675 3825 50  0001 C CNN
+	1    5675 3825
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5600 3625 5600 3725
-Connection ~ 5600 3725
+	5675 3975 5675 4075
+Connection ~ 5675 4075
 Wire Wire Line
-	5600 3725 5600 3825
+	5675 4075 5675 4175
 $Comp
 L power:GND #PWR015
 U 1 1 5C7C73C4
-P 5600 4125
-F 0 "#PWR015" H 5600 3875 50  0001 C CNN
-F 1 "GND" H 5605 3952 50  0000 C CNN
-F 2 "" H 5600 4125 50  0001 C CNN
-F 3 "" H 5600 4125 50  0001 C CNN
-	1    5600 4125
+P 5675 4475
+F 0 "#PWR015" H 5675 4225 50  0001 C CNN
+F 1 "GND" H 5680 4302 50  0000 C CNN
+F 2 "" H 5675 4475 50  0001 C CNN
+F 3 "" H 5675 4475 50  0001 C CNN
+	1    5675 4475
 	1    0    0    -1  
 $EndComp
 Text Label 4375 4475 0    50   ~ 0
@@ -320,27 +320,25 @@ BATT_SENSE
 $Comp
 L Device:C_Small C10
 U 1 1 5C7CB72F
-P 5125 4225
-F 0 "C10" H 5217 4271 50  0000 L CNN
-F 1 "220pF" H 5217 4180 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5125 4225 50  0001 C CNN
-F 3 "~" H 5125 4225 50  0001 C CNN
-	1    5125 4225
+P 5125 4375
+F 0 "C10" H 5217 4421 50  0000 L CNN
+F 1 "220pF" H 5217 4330 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5125 4375 50  0001 C CNN
+F 3 "~" H 5125 4375 50  0001 C CNN
+	1    5125 4375
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR016
 U 1 1 5C7CB7D1
-P 5125 4325
-F 0 "#PWR016" H 5125 4075 50  0001 C CNN
-F 1 "GND" H 5130 4152 50  0000 C CNN
-F 2 "" H 5125 4325 50  0001 C CNN
-F 3 "" H 5125 4325 50  0001 C CNN
-	1    5125 4325
+P 5125 4475
+F 0 "#PWR016" H 5125 4225 50  0001 C CNN
+F 1 "GND" H 5130 4302 50  0000 C CNN
+F 2 "" H 5125 4475 50  0001 C CNN
+F 3 "" H 5125 4475 50  0001 C CNN
+	1    5125 4475
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5125 3725 5600 3725
 $Comp
 L Device:R R1
 U 1 1 5C7CD93D
@@ -375,7 +373,7 @@ F 3 "" H 4250 4075 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5600 3225 5600 3325
+	5675 3575 5675 3675
 Text Label 3275 4875 0    50   ~ 0
 PWM
 $Comp
@@ -516,13 +514,13 @@ Power Supply
 $Comp
 L Device:Solar_Cells SC1
 U 1 1 5C80516E
-P 9175 5350
-F 0 "SC1" H 9283 5396 50  0000 L CNN
-F 1 "Solar_Panel" H 9283 5305 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9175 5410 50  0001 C CNN
-F 3 "~" V 9175 5410 50  0001 C CNN
-	1    9175 5350
-	1    0    0    -1  
+P 9375 2975
+F 0 "SC1" V 9100 2950 50  0000 L CNN
+F 1 "Solar_Panel" V 9175 2675 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 3035 50  0001 C CNN
+F 3 "~" V 9375 3035 50  0001 C CNN
+	1    9375 2975
+	0    -1   1    0   
 $EndComp
 Wire Wire Line
 	1025 1450 1025 1200
@@ -600,13 +598,6 @@ F 3 "" H 2275 6725 50  0001 C CNN
 	1    2275 6725
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4900 4475 4900 4125
-Wire Wire Line
-	4900 4125 5125 4125
-Wire Wire Line
-	5125 3725 5125 4125
-Connection ~ 5125 4125
 Wire Wire Line
 	2800 4475 4900 4475
 $Comp
@@ -790,16 +781,10 @@ V_GATE
 Connection ~ 7125 1225
 Wire Wire Line
 	7125 1225 7675 1225
-Text Label 5600 3225 0    50   ~ 0
+Text Label 5675 3575 0    50   ~ 0
 BATT
-Wire Wire Line
-	9175 5150 9175 4775
-Text Label 9175 5000 0    50   ~ 0
+Text Label 4750 2975 0    50   ~ 0
 SOLAR
-Text Label 4250 3200 0    50   ~ 0
-SOLAR
-Wire Wire Line
-	4250 3200 4250 3325
 $Comp
 L Device:R R3
 U 1 1 5CDCBDC3
@@ -825,13 +810,13 @@ $EndComp
 $Comp
 L Device:R R4
 U 1 1 5CDCC025
-P 7375 3600
-F 0 "R4" H 7445 3646 50  0000 L CNN
-F 1 "220K" H 7445 3555 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7305 3600 50  0001 C CNN
-F 3 "~" H 7375 3600 50  0001 C CNN
-	1    7375 3600
-	1    0    0    -1  
+P 7375 5550
+F 0 "R4" H 7445 5596 50  0000 L CNN
+F 1 "220K" H 7445 5505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 7305 5550 50  0001 C CNN
+F 3 "~" H 7375 5550 50  0001 C CNN
+	1    7375 5550
+	1    0    0    1   
 $EndComp
 $Comp
 L Transistor_BJT:MMBT3904 Q4
@@ -891,36 +876,36 @@ Wire Wire Line
 $Comp
 L Transistor_BJT:MMBT3906 Q1
 U 1 1 5CDDBCFD
-P 7825 3900
-F 0 "Q1" H 8016 3946 50  0000 L CNN
-F 1 "MMBT3906" H 8016 3855 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8025 3825 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3906.pdf" H 7825 3900 50  0001 L CNN
-	1    7825 3900
-	1    0    0    -1  
+P 7825 5250
+F 0 "Q1" H 8016 5296 50  0000 L CNN
+F 1 "MMBT3906" H 8016 5205 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8025 5175 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3906.pdf" H 7825 5250 50  0001 L CNN
+	1    7825 5250
+	1    0    0    1   
 $EndComp
 Wire Wire Line
-	7375 3900 7625 3900
+	7375 5250 7625 5250
 Wire Wire Line
-	7375 3900 7375 4575
+	7375 5250 7375 4575
 Wire Wire Line
 	7375 4575 6800 4575
 Wire Wire Line
 	6800 4575 6800 4375
-Text Label 7375 3225 0    50   ~ 0
+Text Label 7375 5925 0    50   ~ 0
 BATT
 Wire Wire Line
-	7375 3225 7375 3350
+	7375 5925 7375 5800
 Wire Wire Line
-	7375 3750 7375 3900
-Connection ~ 7375 3900
+	7375 5400 7375 5250
+Connection ~ 7375 5250
 Wire Wire Line
-	7925 3700 7925 3350
+	7925 5450 7925 5800
 Wire Wire Line
-	7925 3350 7375 3350
-Connection ~ 7375 3350
+	7925 5800 7375 5800
+Connection ~ 7375 5800
 Wire Wire Line
-	7375 3350 7375 3450
+	7375 5800 7375 5700
 $Comp
 L Diode:1N4148 D3
 U 1 1 5CDE7C5D
@@ -930,10 +915,10 @@ F 1 "1N4148" H 7625 4450 50  0000 C CNN
 F 2 "Diode_SMD:D_SOD-123" H 7625 4400 50  0001 C CNN
 F 3 "http://www.nxp.com/documents/data_sheet/1N4148_1N4448.pdf" H 7625 4575 50  0001 C CNN
 	1    7625 4575
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	7925 4100 7925 4575
+	7925 5050 7925 4575
 Wire Wire Line
 	7925 4575 7775 4575
 Wire Wire Line
@@ -948,7 +933,7 @@ F 1 "1K" V 8209 4575 50  0000 C CNN
 F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 8255 4575 50  0001 C CNN
 F 3 "~" H 8325 4575 50  0001 C CNN
 	1    8325 4575
-	0    1    1    0   
+	0    1    -1   0   
 $EndComp
 $Comp
 L Transistor_FET:IRF3205 Q3
@@ -959,7 +944,7 @@ F 1 "IRF3205" H 9281 4620 50  0000 L CNN
 F 2 "theapi:TO-220F-3_Horizontal_TabUp" H 9325 4500 50  0001 L CIN
 F 3 "http://www.irf.com/product-info/datasheets/data/irf3205.pdf" H 9075 4575 50  0001 L CNN
 	1    9075 4575
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	8875 4575 8475 4575
@@ -967,26 +952,52 @@ Wire Wire Line
 	8175 4575 7925 4575
 Connection ~ 7925 4575
 Wire Wire Line
-	9175 4375 9175 3350
+	9175 4775 9175 5800
 Wire Wire Line
-	9175 3350 7925 3350
-Connection ~ 7925 3350
+	9175 5800 7925 5800
+Connection ~ 7925 5800
 $Comp
 L power:GND #PWR019
 U 1 1 5CDF634C
-P 9175 5550
-F 0 "#PWR019" H 9175 5300 50  0001 C CNN
-F 1 "GND" H 9180 5377 50  0000 C CNN
-F 2 "" H 9175 5550 50  0001 C CNN
-F 3 "" H 9175 5550 50  0001 C CNN
-	1    9175 5550
-	1    0    0    -1  
+P 9725 3200
+F 0 "#PWR019" H 9725 2950 50  0001 C CNN
+F 1 "GND" H 9730 3027 50  0000 C CNN
+F 2 "" H 9725 3200 50  0001 C CNN
+F 3 "" H 9725 3200 50  0001 C CNN
+	1    9725 3200
+	-1   0    0    -1  
 $EndComp
 Connection ~ 4275 4875
 Wire Wire Line
 	4275 4875 5925 4875
 Text Label 2050 1200 0    50   ~ 0
 REG_IN
-Text Notes 8075 4775 0    39   Italic 0
+Text Notes 8100 4475 0    39   Italic 0
 EMI surpression\n(not strictly needed)
+Wire Wire Line
+	5125 4075 5675 4075
+Wire Wire Line
+	5125 4075 5125 4275
+Wire Wire Line
+	4900 4475 4900 4075
+Wire Wire Line
+	4900 4075 5125 4075
+Connection ~ 5125 4075
+Wire Wire Line
+	9575 2975 9725 2975
+Wire Wire Line
+	9725 2975 9725 3200
+Text Notes 6900 4025 0    39   ~ 0
+Drive mosfet gate up \nto charge pump voltage
+Text Notes 7975 5575 0    39   ~ 0
+Drive mosfet gate down\nto battery voltage
+Text Notes 9625 4575 0    39   ~ 0
+or IRLB8743PBF
+Wire Wire Line
+	4250 2975 9175 2975
+Wire Wire Line
+	4250 2975 4250 3325
+Connection ~ 9175 2975
+Wire Wire Line
+	9175 2975 9175 4375
 $EndSCHEMATC
