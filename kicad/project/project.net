@@ -1,8 +1,8 @@
 (export (version D)
   (design
     (source /home/peter/repos/pwm-charge-controller/kicad/project/project.sch)
-    (date "Sat 18 May 2019 22:23:03 BST")
-    (tool "Eeschema 5.0.2-bee76a0~70~ubuntu18.04.1")
+    (date "Sun 19 May 2019 10:32:42 BST")
+    (tool "Eeschema 5.0.2-bee76a0~70~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
         (title "PWM Solar Charge Controller")
@@ -150,7 +150,7 @@
       (tstamp 5C7F0A89))
     (comp (ref SC1)
       (value Solar_Panel)
-      (footprint TerminalBlock:TerminalBlock_bornier-2_P5.08mm)
+      (footprint theapi:TerminalBlock_flipped_bornier-2_P5.08mm)
       (datasheet ~)
       (libsource (lib Device) (part Solar_Cells) (description "Multiple solar cells"))
       (sheetpath (names /) (tstamps /))
@@ -171,7 +171,7 @@
       (tstamp 5C8B15A7))
     (comp (ref BT1)
       (value Battery)
-      (footprint TerminalBlock:TerminalBlock_bornier-2_P5.08mm)
+      (footprint theapi:TerminalBlock_bornier-2_P5.08mm)
       (datasheet ~)
       (libsource (lib Device) (part Battery) (description "Multiple-cell battery"))
       (sheetpath (names /) (tstamps /))

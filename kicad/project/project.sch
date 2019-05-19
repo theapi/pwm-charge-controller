@@ -517,7 +517,7 @@ U 1 1 5C80516E
 P 9375 2975
 F 0 "SC1" V 9100 2950 50  0000 L CNN
 F 1 "Solar_Panel" V 9175 2675 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 3035 50  0001 C CNN
+F 2 "theapi:TerminalBlock_flipped_bornier-2_P5.08mm" V 9375 3035 50  0001 C CNN
 F 3 "~" V 9375 3035 50  0001 C CNN
 	1    9375 2975
 	0    -1   1    0   
@@ -606,7 +606,7 @@ U 1 1 5CDC3C72
 P 9375 5800
 F 0 "BT1" V 9575 5800 50  0000 L CNN
 F 1 "Battery" V 9500 5675 50  0000 L CNN
-F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 9375 5860 50  0001 C CNN
+F 2 "theapi:TerminalBlock_bornier-2_P5.08mm" V 9375 5860 50  0001 C CNN
 F 3 "~" V 9375 5860 50  0001 C CNN
 	1    9375 5800
 	0    -1   -1   0   
