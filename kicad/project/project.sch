@@ -219,41 +219,6 @@ F 3 "" H 2575 1900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R10
-U 1 1 5C7C0432
-P 4275 5250
-F 0 "R10" H 4345 5296 50  0000 L CNN
-F 1 "1K" H 4345 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 4205 5250 50  0001 C CNN
-F 3 "~" H 4275 5250 50  0001 C CNN
-	1    4275 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:LED D6
-U 1 1 5C7C051B
-P 4275 5700
-F 0 "D6" V 4313 5583 50  0000 R CNN
-F 1 "LED" V 4222 5583 50  0000 R CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4275 5700 50  0001 C CNN
-F 3 "~" H 4275 5700 50  0001 C CNN
-	1    4275 5700
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR022
-U 1 1 5C7C05D8
-P 4275 5850
-F 0 "#PWR022" H 4275 5600 50  0001 C CNN
-F 1 "GND" H 4280 5677 50  0000 C CNN
-F 2 "" H 4275 5850 50  0001 C CNN
-F 3 "" H 4275 5850 50  0001 C CNN
-	1    4275 5850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4275 5550 4275 5400
-$Comp
 L Device:LED D4
 U 1 1 5C7C3D9B
 P 900 5550
@@ -569,13 +534,9 @@ Wire Wire Line
 Wire Wire Line
 	1100 5800 1000 5800
 Connection ~ 1000 5800
-Wire Wire Line
-	4275 5100 4275 4875
 NoConn ~ 2800 4675
 Text Label 1150 5275 0    50   ~ 0
 LED_2
-Text Label 4275 5500 0    50   ~ 0
-LED_3
 Wire Wire Line
 	2800 4475 4900 4475
 $Comp
@@ -807,8 +768,6 @@ F 3 "https://www.fairchildsemi.com/datasheets/2N/2N3904.pdf" H 6125 4875 50  000
 	1    6125 4875
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2800 4875 4275 4875
 $Comp
 L power:GND #PWR018
 U 1 1 5CDCF0C3
@@ -942,9 +901,6 @@ F 3 "" H 9725 3200 50  0001 C CNN
 	1    9725 3200
 	-1   0    0    -1  
 $EndComp
-Connection ~ 4275 4875
-Wire Wire Line
-	4275 4875 5925 4875
 Text Label 2050 1200 0    50   ~ 0
 REG_IN
 Text Notes 8100 4475 0    39   Italic 0
@@ -1024,4 +980,6 @@ F 3 "~" H 3275 6625 50  0001 C CNN
 	1    3275 6625
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	2800 4875 5925 4875
 $EndSCHEMATC
