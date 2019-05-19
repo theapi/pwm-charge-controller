@@ -576,28 +576,6 @@ Text Label 1150 5275 0    50   ~ 0
 LED_2
 Text Label 4275 5500 0    50   ~ 0
 LED_3
-$Comp
-L Mechanical:MountingHole_Pad H1
-U 1 1 5C8B15A7
-P 2275 6625
-F 0 "H1" H 2375 6676 50  0000 L CNN
-F 1 "MountingHole_Pad" H 2375 6585 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 2275 6625 50  0001 C CNN
-F 3 "~" H 2275 6625 50  0001 C CNN
-	1    2275 6625
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR023
-U 1 1 5C8BA2A9
-P 2275 6725
-F 0 "#PWR023" H 2275 6475 50  0001 C CNN
-F 1 "GND" H 2280 6552 50  0000 C CNN
-F 2 "" H 2275 6725 50  0001 C CNN
-F 3 "" H 2275 6725 50  0001 C CNN
-	1    2275 6725
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2800 4475 4900 4475
 $Comp
@@ -1002,4 +980,48 @@ Wire Wire Line
 	9575 5800 9750 5800
 Wire Wire Line
 	9750 5800 9750 6050
+$Comp
+L power:GND #PWR023
+U 1 1 5C8BA2A9
+P 2275 6725
+F 0 "#PWR023" H 2275 6475 50  0001 C CNN
+F 1 "GND" H 2280 6552 50  0000 C CNN
+F 2 "" H 2275 6725 50  0001 C CNN
+F 3 "" H 2275 6725 50  0001 C CNN
+	1    2275 6725
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 5C8B15A7
+P 2275 6625
+F 0 "H1" H 2375 6676 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2375 6585 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 2275 6625 50  0001 C CNN
+F 3 "~" H 2275 6625 50  0001 C CNN
+	1    2275 6625
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR024
+U 1 1 5CE1EE4D
+P 3275 6725
+F 0 "#PWR024" H 3275 6475 50  0001 C CNN
+F 1 "GND" H 3280 6552 50  0000 C CNN
+F 2 "" H 3275 6725 50  0001 C CNN
+F 3 "" H 3275 6725 50  0001 C CNN
+	1    3275 6725
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 5CE1EE53
+P 3275 6625
+F 0 "H2" H 3375 6676 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3375 6585 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 3275 6625 50  0001 C CNN
+F 3 "~" H 3275 6625 50  0001 C CNN
+	1    3275 6625
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
