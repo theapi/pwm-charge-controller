@@ -538,7 +538,7 @@ NoConn ~ 2800 4675
 Text Label 1150 5275 0    50   ~ 0
 LED_2
 Wire Wire Line
-	2800 4475 4900 4475
+	2800 4475 4300 4475
 $Comp
 L Device:Battery BT1
 U 1 1 5CDC3C72
@@ -582,7 +582,7 @@ Text GLabel 2800 5075 2    50   Input ~ 0
 pump2
 Text GLabel 6350 2100 0    50   Input ~ 0
 pump2
-Text GLabel 5700 1875 0    50   Input ~ 0
+Text GLabel 5700 2100 0    50   Input ~ 0
 pump1
 Text Notes 4750 800  0    98   ~ 20
 Charge Pump
@@ -681,12 +681,12 @@ $EndComp
 $Comp
 L Device:C C4
 U 1 1 5CDB9EB6
-P 6350 1800
-F 0 "C4" H 6465 1846 50  0000 L CNN
-F 1 "47nF" H 6465 1755 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6388 1650 50  0001 C CNN
-F 3 "~" H 6350 1800 50  0001 C CNN
-	1    6350 1800
+P 6350 1600
+F 0 "C4" H 6465 1646 50  0000 L CNN
+F 1 "47nF" H 6465 1555 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6388 1450 50  0001 C CNN
+F 3 "~" H 6350 1600 50  0001 C CNN
+	1    6350 1600
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -705,21 +705,21 @@ Connection ~ 5700 1225
 Wire Wire Line
 	5700 1225 5900 1225
 Wire Wire Line
-	6350 1650 6350 1225
+	6350 1450 6350 1225
 Connection ~ 6350 1225
 Wire Wire Line
 	6350 1225 6500 1225
 Wire Wire Line
-	6350 1950 6350 2100
+	6350 1750 6350 1900
 Wire Wire Line
-	5700 1750 5700 1875
+	5700 1750 5700 1900
 Text Label 4950 1225 0    50   ~ 0
 BATT
 Text Label 7675 1225 2    50   ~ 0
 V_GATE
 Connection ~ 7125 1225
 Wire Wire Line
-	7125 1225 7675 1225
+	7125 1225 7225 1225
 Text Label 5675 3575 0    50   ~ 0
 BATT
 Text Label 4750 2975 0    50   ~ 0
@@ -981,5 +981,75 @@ F 3 "~" H 3275 6625 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2800 4875 5925 4875
+	2800 4875 4300 4875
+$Comp
+L Connector:TestPoint TP5
+U 1 1 5CE45D7F
+P 4300 4875
+F 0 "TP5" H 4350 5175 50  0000 R CNN
+F 1 "TestPoint" H 4450 5100 50  0000 R CNN
+F 2 "Connectors_TestPoints:Test_Point_Pad_d1.0mm" H 4500 4875 50  0001 C CNN
+F 3 "~" H 4500 4875 50  0001 C CNN
+	1    4300 4875
+	-1   0    0    1   
+$EndComp
+Connection ~ 4300 4875
+Wire Wire Line
+	4300 4875 5925 4875
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5CE460AF
+P 5700 1900
+F 0 "TP2" V 5725 2225 50  0000 C CNN
+F 1 "TestPoint" V 5800 2125 50  0000 C CNN
+F 2 "Connectors_TestPoints:Test_Point_Pad_d1.0mm" H 5900 1900 50  0001 C CNN
+F 3 "~" H 5900 1900 50  0001 C CNN
+	1    5700 1900
+	0    -1   -1   0   
+$EndComp
+Connection ~ 5700 1900
+Wire Wire Line
+	5700 1900 5700 2100
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5CE49D80
+P 6350 1900
+F 0 "TP3" V 6375 2225 50  0000 C CNN
+F 1 "TestPoint" V 6450 2125 50  0000 C CNN
+F 2 "Connectors_TestPoints:Test_Point_Pad_d1.0mm" H 6550 1900 50  0001 C CNN
+F 3 "~" H 6550 1900 50  0001 C CNN
+	1    6350 1900
+	0    -1   -1   0   
+$EndComp
+Connection ~ 6350 1900
+Wire Wire Line
+	6350 1900 6350 2100
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5CE49E54
+P 7225 1225
+F 0 "TP1" H 7175 1525 50  0000 L CNN
+F 1 "TestPoint" H 7075 1450 50  0000 L CNN
+F 2 "Connectors_TestPoints:Test_Point_Pad_d1.0mm" H 7425 1225 50  0001 C CNN
+F 3 "~" H 7425 1225 50  0001 C CNN
+	1    7225 1225
+	1    0    0    -1  
+$EndComp
+Connection ~ 7225 1225
+Wire Wire Line
+	7225 1225 7675 1225
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5CE4A80C
+P 4300 4475
+F 0 "TP4" H 4350 4775 50  0000 R CNN
+F 1 "TestPoint" H 4450 4700 50  0000 R CNN
+F 2 "Connectors_TestPoints:Test_Point_Pad_d1.0mm" H 4500 4475 50  0001 C CNN
+F 3 "~" H 4500 4475 50  0001 C CNN
+	1    4300 4475
+	-1   0    0    1   
+$EndComp
+Connection ~ 4300 4475
+Wire Wire Line
+	4300 4475 4900 4475
 $EndSCHEMATC
