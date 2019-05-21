@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/peter/repos/pwm-charge-controller/kicad/project/project.sch)
-    (date "Tue 21 May 2019 19:16:07 BST")
+    (date "Tue 21 May 2019 20:06:28 BST")
     (tool "Eeschema 5.0.2-bee76a0~70~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -241,7 +241,7 @@
       (tstamp 5CDDBCFD))
     (comp (ref D3)
       (value 1N4148)
-      (footprint Diode_SMD:D_SOD-123)
+      (footprint Diode_SMD:D_SOD-123F)
       (datasheet http://www.nxp.com/documents/data_sheet/1N4148_1N4448.pdf)
       (libsource (lib Diode) (part 1N4148) (description "100V 0.15A standard switching diode, DO-35"))
       (sheetpath (names /) (tstamps /))
