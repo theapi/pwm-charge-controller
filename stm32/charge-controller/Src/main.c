@@ -41,7 +41,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
-#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -136,29 +135,25 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
-  MX_I2C1_Init();
   MX_ADC_Init();
+  MX_TIM22_Init();
   /* USER CODE BEGIN 2 */
 
 
-  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
-  // This is the driver pin for conecting the battery to the adc.
-  // So the battery can always be connected but present no voltage
-  // to the adc until it is powered.
-  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+//  // This is the driver pin for conecting the battery to the adc.
+//  // So the battery can always be connected but present no voltage
+//  // to the adc until it is powered.
+//  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
-//  /* Start the adc */
-//  HAL_ADC_Start(&hadc);
 
-  /* Start the PWM which is configured for 10.4kHz
-   *
-   * Smooth with 4.6k & 1uF RC low pass filter.
-   */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
 
-  htim2.Instance->CCR1 = 0;
+  // htim2.Instance->CCR1 = 0;
 
   /* USER CODE END 2 */
 
@@ -169,60 +164,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-	  HAL_ADC_Start(&hadc);
-
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
-	  // 866 = 5039   = 5.818706697 per bit
-	  // 2233 = 12995 = 5.819525302 per bit
-	  panel_mv = (panel_val * 5819) / 1000;
-
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
-	  // 706 = 4084   = 5.7847025   per bit
-	  // 2225 = 12870 = 5.784269663 per bit
-	  battery_mv = (batt_val * 5784) / 1000;
-
-	  HAL_ADC_Stop(&hadc);
-
-	  if (panel_mv > 12000) {
-		  //Allow for the diode drop.
-		  if (battery_mv > 13750) {
-			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
-			  if (htim2.Instance->CCR1 > 0) {
-				  htim2.Instance->CCR1 -= 1;
-			  }
-		  } else if (battery_mv < 13650){
-			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
-			  if (htim2.Instance->CCR1 < 253) {
-				  htim2.Instance->CCR1 += 1;
-			  }
-		  }
-	  } else {
-		  // Not enough to do charging.
-		  htim2.Instance->CCR1 = 0;
-	  }
-
-	  HAL_Delay(10);
-
-
-//	  uint32_t now = HAL_GetTick();
-//	  if (now - tx_last >= 250) {
-//		  tx_last = now;
-//		  int tx_len = snprintf(
-//				  tx_buffer,
-//				  TXBUFFERSIZE,
-//				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
-//				  msg_id++,
-//				  battery_mv,
-//				  panel_mv,
-//				  htim2.Instance->CCR1
-//		  );
-//		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
-//	  }
 
 
 
@@ -266,9 +207,8 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
