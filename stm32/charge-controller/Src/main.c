@@ -140,7 +140,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-//  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
 //  // This is the driver pin for conecting the battery to the adc.
 //  // So the battery can always be connected but present no voltage
 //  // to the adc until it is powered.
