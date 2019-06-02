@@ -82,8 +82,6 @@ void Error_Handler(void);
 #define LED_1_GPIO_Port GPIOC
 #define LED_2_Pin GPIO_PIN_15
 #define LED_2_GPIO_Port GPIOC
-#define LED_3_Pin GPIO_PIN_4
-#define LED_3_GPIO_Port GPIOA
 #define PWM_Pin GPIO_PIN_5
 #define PWM_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
