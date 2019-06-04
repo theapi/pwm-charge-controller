@@ -92,13 +92,6 @@ void SystemClock_Config(void);
 /* Buffer used for debug UART */
 char tx_buffer[TXBUFFERSIZE];
 uint8_t msg_id = 0;
-//uint32_t batt = 0;
-//uint32_t ccr = 0;
-//uint32_t power = 100;
-//uint32_t alpha = 70;
-//uint32_t movingAverage = 0;
-
-
 uint32_t tx_last;
 uint32_t panel_mv = 0;
 uint32_t battery_mv = 0;
@@ -141,10 +134,6 @@ int main(void)
 
 
   HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
-//  // This is the driver pin for conecting the battery to the adc.
-//  // So the battery can always be connected but present no voltage
-//  // to the adc until it is powered.
-//  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
 
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
@@ -153,7 +142,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim22, TIM_CHANNEL_2);
 
-  // htim2.Instance->CCR1 = 0;
+  htim2.Instance->CCR1 = 0;
 
   /* USER CODE END 2 */
 
@@ -165,6 +154,35 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+	  HAL_ADC_Start(&hadc);
+
+	  HAL_ADC_PollForConversion(&hadc, 100);
+	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
+	  panel_mv = (panel_val * 5829) / 1000;
+
+	  HAL_ADC_PollForConversion(&hadc, 100);
+	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
+	  // 2060 = 12000 = 5.82961165 per bit
+	  battery_mv = (batt_val * 5829) / 1000;
+
+	  HAL_ADC_Stop(&hadc);
+
+	  HAL_Delay(10);
+
+	  uint32_t now = HAL_GetTick();
+	  if (now - tx_last >= 250) {
+		  tx_last = now;
+		  int tx_len = snprintf(
+				  tx_buffer,
+				  TXBUFFERSIZE,
+				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
+				  msg_id++,
+				  battery_mv,
+				  panel_mv,
+				  htim2.Instance->CCR1
+		  );
+		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+	  }
 
 
   }
