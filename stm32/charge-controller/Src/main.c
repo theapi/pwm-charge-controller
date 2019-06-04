@@ -65,7 +65,7 @@
 /* USER CODE BEGIN PD */
 
 #define TXBUFFERSIZE 128
-#define READING_INDEX_LENGTH 4
+#define SETPOINT 5500
 
 /* USER CODE END PD */
 
@@ -167,22 +167,35 @@ int main(void)
 
 	  HAL_ADC_Stop(&hadc);
 
-	  HAL_Delay(10);
-
-	  uint32_t now = HAL_GetTick();
-	  if (now - tx_last >= 250) {
-		  tx_last = now;
-		  int tx_len = snprintf(
-				  tx_buffer,
-				  TXBUFFERSIZE,
-				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
-				  msg_id++,
-				  battery_mv,
-				  panel_mv,
-				  htim2.Instance->CCR1
-		  );
-		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+	  if (battery_mv > SETPOINT) {
+		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
+		  if (htim2.Instance->CCR1 > 0) {
+			  htim2.Instance->CCR1 -= 1;
+		  }
+	  } else if (battery_mv < SETPOINT){
+		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
+		  if (htim2.Instance->CCR1 < 1000) {
+			  htim2.Instance->CCR1 += 1;
+		  }
 	  }
+
+
+	  //HAL_Delay(10);
+
+//	  uint32_t now = HAL_GetTick();
+//	  if (now - tx_last >= 250) {
+//		  tx_last = now;
+//		  int tx_len = snprintf(
+//				  tx_buffer,
+//				  TXBUFFERSIZE,
+//				  "msg_id:%d, batt:%lu, panel:%lu, ccr:%lu \n",
+//				  msg_id++,
+//				  battery_mv,
+//				  panel_mv,
+//				  htim2.Instance->CCR1
+//		  );
+//		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
+//	  }
 
 
   }
