@@ -51,8 +51,7 @@
 #include "string.h"
 #include "stdio.h"
 
-/* External ADC */
-#include "ads1015.h"
+#include "led.h"
 
 /* USER CODE END Includes */
 
@@ -95,6 +94,7 @@ uint8_t msg_id = 0;
 uint32_t tx_last;
 uint32_t panel_mv = 0;
 uint32_t battery_mv = 0;
+uint32_t led2_last;
 
 /* USER CODE END 0 */
 
@@ -132,8 +132,22 @@ int main(void)
   MX_TIM22_Init();
   /* USER CODE BEGIN 2 */
 
+  /* A status led on led 1 */
+  LED_HandleTypeDef led1;
+  LED_Init(&led1, GPIOC, LED_1_Pin);
+  led1.onDuration = 50;
+  led1.offDuration = 250;
+  LED_on(&led1);
 
-  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+  /* A status led on led 2 */
+  LED_HandleTypeDef led2;
+  LED_Init(&led2, GPIOC, LED_2_Pin);
+  led2.onDuration = 50;
+  led2.offDuration = 950;
+
+  LED_on(&led2);
+
+  // HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
@@ -168,22 +182,34 @@ int main(void)
 	  HAL_ADC_Stop(&hadc);
 
 	  if (battery_mv > SETPOINT) {
-		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
+		  //HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
 		  if (htim2.Instance->CCR1 > 0) {
 			  htim2.Instance->CCR1 -= 1;
 		  }
 	  } else if (battery_mv < SETPOINT){
-		  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
+		  //HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
 		  if (htim2.Instance->CCR1 < 1000) {
 			  htim2.Instance->CCR1 += 1;
 		  }
 	  }
 
+	  if (htim2.Instance->CCR1 == 1000) {
+		  LED_on(&led1);
+	  } else if (htim2.Instance->CCR1 == 0) {
+		  LED_off(&led1);
+	  } else {
+		  LED_flash(&led1);
+	  }
+
+
+	  LED_flash(&led2);
 
 	  //HAL_Delay(10);
-
+//
 //	  uint32_t now = HAL_GetTick();
+//
 //	  if (now - tx_last >= 250) {
+//
 //		  tx_last = now;
 //		  int tx_len = snprintf(
 //				  tx_buffer,
