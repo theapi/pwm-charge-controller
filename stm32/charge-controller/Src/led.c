@@ -2,7 +2,7 @@
 
 void LED_Init(LED_HandleTypeDef* led, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin) {
 	led->GPIOx = GPIOx;
-    led->GPIO_Pin = GPIO_Pin;
+	led->GPIO_Pin = GPIO_Pin;
 	led->onDuration = 0;
 	led->offDuration = 0;
 	led->pauseDuration = 0;
@@ -25,50 +25,51 @@ void LED_flash(LED_HandleTypeDef* led) {
 
 	switch (led->state) {
 
-		case LED_STATE_NONE:
-			led->state = LED_STATE_TURN_ON;
-			break;
+	case LED_STATE_NONE:
+		led->state = LED_STATE_TURN_ON;
+		break;
 
-		case LED_STATE_TURN_ON:
-			HAL_GPIO_WritePin(led->GPIOx, led->GPIO_Pin, GPIO_PIN_SET);
-			led->pulseCnt++; // Increase loop counter
+	case LED_STATE_TURN_ON:
+		HAL_GPIO_WritePin(led->GPIOx, led->GPIO_Pin, GPIO_PIN_SET);
+		led->pulseCnt++; // Increase loop counter
+		led->previousMillis = currentMillis;
+		led->state = LED_STATE_ON;
+		break;
+
+	case LED_STATE_ON:
+		if (currentMillis - led->previousMillis >= led->onDuration) {
+			led->state = LED_STATE_TURN_OFF;
+		}
+		break;
+
+	case LED_STATE_TURN_OFF:
+		HAL_GPIO_WritePin(led->GPIOx, led->GPIO_Pin, GPIO_PIN_RESET);
+		led->previousMillis = currentMillis;
+		led->state = LED_STATE_OFF;
+		break;
+
+	case LED_STATE_OFF:
+		if (currentMillis - led->previousMillis >= led->offDuration) {
+			led->state = LED_STATE_SEQUENCE_CHECK;
+		}
+		break;
+
+	case LED_STATE_SEQUENCE_CHECK:
+		if (led->pulseCnt >= led->pulses) {
+			led->pulseCnt = 0;
 			led->previousMillis = currentMillis;
-			led->state = LED_STATE_ON;
-			break;
+			led->state = LED_STATE_PAUSE; // Sequence finished
+		} else {
+			led->state = LED_STATE_NONE;
+		}
+		break;
 
-		case LED_STATE_ON:
-			if (currentMillis - led->previousMillis >= led->onDuration) {
-				led->state = LED_STATE_TURN_OFF;
-			}
-			break;
-
-		case LED_STATE_TURN_OFF:
-			HAL_GPIO_WritePin(led->GPIOx, led->GPIO_Pin, GPIO_PIN_RESET);
-			led->previousMillis = currentMillis;
-			led->state = LED_STATE_OFF;
-			break;
-
-		case LED_STATE_OFF:
-			if (currentMillis - led->previousMillis >= led->offDuration) {
-				led->state = LED_STATE_SEQUENCE_CHECK;
-			}
-			break;
-
-		case LED_STATE_SEQUENCE_CHECK:
-			if (led->pulseCnt >= led->pulses) {
-				led->pulseCnt = 0;
-				led->previousMillis = currentMillis;
-				led->state = LED_STATE_PAUSE; // Sequence finished
-			} else {
-				led->state = LED_STATE_NONE;
-			}
-			break;
-
-		case LED_STATE_PAUSE:
-			if (currentMillis - led->previousMillis >= led->pauseDuration) {
-				led->state = LED_STATE_NONE;
-			}
-			break;
+	case LED_STATE_PAUSE:
+		if (currentMillis - led->previousMillis >= led->pauseDuration) {
+			led->state = LED_STATE_NONE;
+		}
+		break;
 	}
 
 }
+

@@ -161,53 +161,52 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+	while (1) {
+		/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+		/* USER CODE BEGIN 3 */
 
-	  HAL_ADC_Start(&hadc);
+		HAL_ADC_Start(&hadc);
 
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
-	  panel_mv = (panel_val * 5829) / 1000;
+		HAL_ADC_PollForConversion(&hadc, 100);
+		uint32_t panel_val = HAL_ADC_GetValue(&hadc);
+		panel_mv = (panel_val * 5829) / 1000;
 
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
-	  // 2060 = 12000 = 5.82961165 per bit
-	  battery_mv = (batt_val * 5829) / 1000;
+		HAL_ADC_PollForConversion(&hadc, 100);
+		uint32_t batt_val = HAL_ADC_GetValue(&hadc);
+		// 2060 = 12000 = 5.82961165 per bit
+		battery_mv = (batt_val * 5829) / 1000;
 
-	  HAL_ADC_Stop(&hadc);
+		HAL_ADC_Stop(&hadc);
 
-	  if (battery_mv > SETPOINT) {
-		  //HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-		  if (htim2.Instance->CCR1 > 0) {
-			  htim2.Instance->CCR1 -= 1;
-		  }
-	  } else if (battery_mv < SETPOINT){
-		  //HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-		  if (htim2.Instance->CCR1 < 1000) {
-			  htim2.Instance->CCR1 += 1;
-		  }
-	  }
-
-	  if (htim2.Instance->CCR1 == 1000) {
-		  LED_on(&led1);
-	  } else if (htim2.Instance->CCR1 == 0) {
-		  LED_off(&led1);
-	  } else {
-		  led1.onDuration = htim2.Instance->CCR1;
-		  LED_flash(&led1);
-	  }
+		if ((panel_mv < battery_mv + 500) || battery_mv > SETPOINT) {
+			if (htim2.Instance->CCR1 > 0) {
+				htim2.Instance->CCR1 -= 1;
+			}
+		} else if ((panel_mv > battery_mv + 500) && battery_mv < SETPOINT) {
+			/* Only up the PWM if there is solar power to charge from. */
+			if (htim2.Instance->CCR1 < 1000) {
+				htim2.Instance->CCR1 += 1;
+			}
+		}
 
 
-	  LED_flash(&led2);
+		/* Set the leds */
+		if (htim2.Instance->CCR1 == 1000) {
+			LED_on(&led1);
+		} else if (htim2.Instance->CCR1 == 0) {
+			LED_off(&led1);
+		} else {
+			led1.onDuration = htim2.Instance->CCR1;
+			LED_flash(&led1);
+		}
 
-	  //HAL_Delay(10);
-//
+		LED_flash(&led2);
+
+		//HAL_Delay(10);
+
 //	  uint32_t now = HAL_GetTick();
-//
+
 //	  if (now - tx_last >= 250) {
 //
 //		  tx_last = now;
@@ -223,8 +222,7 @@ int main(void)
 //		  HAL_UART_Transmit(&huart2, (uint8_t *)tx_buffer, tx_len, 500);
 //	  }
 
-
-  }
+	}
   /* USER CODE END 3 */
 }
 
