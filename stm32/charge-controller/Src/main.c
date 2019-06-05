@@ -135,8 +135,7 @@ int main(void)
   /* A status led on led 1 */
   LED_HandleTypeDef led1;
   LED_Init(&led1, GPIOC, LED_1_Pin);
-  led1.onDuration = 50;
-  led1.offDuration = 250;
+  led1.offDuration = 500;
   LED_on(&led1);
 
   /* A status led on led 2 */
@@ -198,6 +197,7 @@ int main(void)
 	  } else if (htim2.Instance->CCR1 == 0) {
 		  LED_off(&led1);
 	  } else {
+		  led1.onDuration = htim2.Instance->CCR1;
 		  LED_flash(&led1);
 	  }
 
