@@ -44,10 +44,6 @@ F 3 "" H 4050 5125 50  0001 C CNN
 	1    4050 5125
 	1    0    0    -1  
 $EndComp
-Text GLabel 4550 4625 2    50   Input ~ 0
-SCL
-Text GLabel 4550 4725 2    50   Input ~ 0
-SDA
 Text GLabel 3550 4925 0    50   Input ~ 0
 CURRENT_SENSE
 $Comp
@@ -667,8 +663,6 @@ F 3 "~" H 5950 1550 50  0001 C CNN
 $EndComp
 Text GLabel 6150 1850 2    50   Input ~ 0
 UART_TX
-Text GLabel 4550 4525 2    60   Input ~ 0
-ADC_RDY
 Wire Wire Line
 	6000 3075 6000 3150
 Wire Wire Line
@@ -1013,4 +1007,7 @@ Wire Wire Line
 	9475 2975 9825 2975
 Wire Wire Line
 	10225 2675 10225 4475
+NoConn ~ 4550 4625
+NoConn ~ 4550 4525
+NoConn ~ 4550 4725
 $EndSCHEMATC
