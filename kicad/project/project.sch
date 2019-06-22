@@ -320,17 +320,6 @@ F 3 "" H 8200 3325 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	8750 4475 8900 4475
-$Comp
-L power:GND #PWR035
-U 1 1 5C7B5C1D
-P 10425 5150
-F 0 "#PWR035" H 10425 4900 50  0001 C CNN
-F 1 "GND" H 10430 4977 50  0000 C CNN
-F 2 "" H 10425 5150 50  0001 C CNN
-F 3 "" H 10425 5150 50  0001 C CNN
-	1    10425 5150
-	1    0    0    -1  
-$EndComp
 Text GLabel 6925 4575 0    50   Input ~ 0
 CURRENT_SENSE
 $Comp
@@ -534,7 +523,7 @@ L Device:C_Small C9
 U 1 1 5C7CB72F
 P 6875 3675
 F 0 "C9" H 6967 3721 50  0000 L CNN
-F 1 "1uF" H 6967 3630 50  0000 L CNN
+F 1 "220pF" H 6967 3630 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6875 3675 50  0001 C CNN
 F 3 "~" H 6875 3675 50  0001 C CNN
 	1    6875 3675
@@ -678,186 +667,8 @@ F 3 "~" H 5950 1550 50  0001 C CNN
 $EndComp
 Text GLabel 6150 1850 2    50   Input ~ 0
 UART_TX
-$Comp
-L project-rescue:ADS1015-adc U1
-U 1 1 592DD751
-P 2350 6925
-F 0 "U1" H 1750 7375 50  0000 L CNN
-F 1 "ADS1015" H 2600 7375 50  0000 L CNN
-F 2 "theapi:TSSOP-10_3x3mm_P0.5mm" H 2300 6875 50  0001 C CNN
-F 3 "" H 1450 7325 50  0001 C CNN
-	1    2350 6925
-	1    0    0    -1  
-$EndComp
-Text Notes 600  5975 0    98   ~ 20
-Optional External ADC
-Text GLabel 3900 6725 2    60   Input ~ 0
-SCL
-Text GLabel 3900 6825 2    60   Input ~ 0
-SDA
-$Comp
-L project-rescue:R-stm32l053c-rescue R5
-U 1 1 59300E59
-P 3650 6375
-F 0 "R5" V 3730 6375 50  0000 C CNN
-F 1 "10K" V 3650 6375 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3580 6375 50  0001 C CNN
-F 3 "" H 3650 6375 50  0001 C CNN
-	1    3650 6375
-	1    0    0    -1  
-$EndComp
-$Comp
-L project-rescue:R-stm32l053c-rescue R4
-U 1 1 59300F14
-P 3450 6375
-F 0 "R4" V 3530 6375 50  0000 C CNN
-F 1 "10K" V 3450 6375 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3380 6375 50  0001 C CNN
-F 3 "" H 3450 6375 50  0001 C CNN
-	1    3450 6375
-	1    0    0    -1  
-$EndComp
-Text GLabel 3925 6925 2    60   Input ~ 0
-ADC_RDY
-$Comp
-L project-rescue:C-stm32l053c-rescue C2
-U 1 1 5930245B
-P 3150 6275
-F 0 "C2" H 3175 6375 50  0000 L CNN
-F 1 "0.1UF" H 3175 6175 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3188 6125 50  0001 C CNN
-F 3 "" H 3150 6275 50  0001 C CNN
-	1    3150 6275
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR04
-U 1 1 59303669
-P 2350 6125
-F 0 "#PWR04" H 2350 5975 50  0001 C CNN
-F 1 "+3.3V" H 2350 6265 50  0000 C CNN
-F 2 "" H 2350 6125 50  0001 C CNN
-F 3 "" H 2350 6125 50  0001 C CNN
-	1    2350 6125
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR014
-U 1 1 59303771
-P 3550 6125
-F 0 "#PWR014" H 3550 5975 50  0001 C CNN
-F 1 "+3.3V" H 3550 6265 50  0000 C CNN
-F 2 "" H 3550 6125 50  0001 C CNN
-F 3 "" H 3550 6125 50  0001 C CNN
-	1    3550 6125
-	1    0    0    -1  
-$EndComp
-Text Label 1400 7225 0    60   ~ 0
-AIN3
-Wire Wire Line
-	3050 6725 3650 6725
-Wire Wire Line
-	3050 6825 3450 6825
-Wire Wire Line
-	3450 6525 3450 6825
-Connection ~ 3450 6825
-Wire Wire Line
-	3650 6525 3650 6725
-Connection ~ 3650 6725
-Wire Wire Line
-	3450 6225 3550 6225
-Connection ~ 3550 6225
-Wire Wire Line
-	3250 7125 3250 6625
-Wire Wire Line
-	3250 6625 3050 6625
-Wire Wire Line
-	3050 6925 3850 6925
-Wire Wire Line
-	2350 6125 3150 6125
-Wire Wire Line
-	2350 6125 2350 6425
-Wire Wire Line
-	3550 6225 3550 6125
-Wire Notes Line
-	575  5800 575  7650
-Wire Notes Line
-	575  7650 4675 7650
-Wire Notes Line
-	4675 7650 4675 5800
-Wire Notes Line
-	4675 5800 575  5800
-$Comp
-L project-rescue:R-stm32l053c-rescue R6
-U 1 1 59492AEA
-P 3850 6375
-F 0 "R6" V 3930 6375 50  0000 C CNN
-F 1 "10K" V 3850 6375 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 3780 6375 50  0001 C CNN
-F 3 "" H 3850 6375 50  0001 C CNN
-	1    3850 6375
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3850 6525 3850 6925
-Connection ~ 3850 6925
-Connection ~ 3650 6225
-Wire Wire Line
-	3450 6825 3900 6825
-Wire Wire Line
-	3650 6725 3900 6725
-Wire Wire Line
-	3550 6225 3650 6225
-Wire Wire Line
-	3850 6925 3925 6925
-Wire Wire Line
-	3650 6225 3850 6225
-Connection ~ 2350 6125
-Wire Wire Line
-	1400 7125 1650 7125
 Text GLabel 4550 4525 2    60   Input ~ 0
 ADC_RDY
-$Comp
-L power:GND #PWR011
-U 1 1 5C7F165E
-P 3250 7125
-F 0 "#PWR011" H 3250 6875 50  0001 C CNN
-F 1 "GND" H 3255 6952 50  0000 C CNN
-F 2 "" H 3250 7125 50  0001 C CNN
-F 3 "" H 3250 7125 50  0001 C CNN
-	1    3250 7125
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR05
-U 1 1 5C7F17E4
-P 2350 7425
-F 0 "#PWR05" H 2350 7175 50  0001 C CNN
-F 1 "GND" H 2355 7252 50  0000 C CNN
-F 2 "" H 2350 7425 50  0001 C CNN
-F 3 "" H 2350 7425 50  0001 C CNN
-	1    2350 7425
-	1    0    0    -1  
-$EndComp
-Text Label 1150 6725 0    50   ~ 0
-BATT_SENSE
-Wire Wire Line
-	1650 6725 1150 6725
-Text GLabel 1650 7025 0    50   Input ~ 0
-CURRENT_SENSE
-$Comp
-L Connector:TestPoint TP1
-U 1 1 5C7F7EC9
-P 1400 7275
-F 0 "TP1" V 1400 7475 50  0000 L CNN
-F 1 "TestPoint" V 1400 7475 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 1600 7275 50  0001 C CNN
-F 3 "~" H 1600 7275 50  0001 C CNN
-	1    1400 7275
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	1400 7275 1400 7125
 Wire Wire Line
 	6000 3075 6000 3150
 Wire Wire Line
@@ -871,10 +682,6 @@ Wire Wire Line
 	6000 3150 6000 3225
 Text Label 5150 3825 0    50   ~ 0
 PANEL_SENSE
-Text Label 1150 6825 0    50   ~ 0
-PANEL_SENSE
-Wire Wire Line
-	1650 6825 1150 6825
 $Comp
 L Device:R R7
 U 1 1 5C7DB05A
@@ -1009,22 +816,11 @@ Wire Wire Line
 	2150 5250 2050 5250
 Connection ~ 2050 5250
 $Comp
-L Device:D_Schottky D5
-U 1 1 5C7C7D61
-P 10000 4475
-F 0 "D5" H 10000 4259 50  0000 C CNN
-F 1 "D_Schottky" H 10000 4350 50  0000 C CNN
-F 2 "Diode_THT:D_DO-201AD_P12.70mm_Horizontal" H 10000 4475 50  0001 C CNN
-F 3 "~" H 10000 4475 50  0001 C CNN
-	1    10000 4475
-	-1   0    0    1   
-$EndComp
-$Comp
 L theapi_driver:VN7003ALH U4
 U 1 1 5C7F933B
 P 8300 4225
 F 0 "U4" H 8375 4475 50  0000 C CNN
-F 1 "VN7003ALH" H 8550 3600 50  0000 C CNN
+F 1 "VN7004CLHTR" H 8550 3600 50  0000 C CNN
 F 2 "theapi:Octapak" H 8300 4225 50  0001 C CNN
 F 3 "" H 8300 4225 50  0001 C CNN
 	1    8300 4225
@@ -1036,19 +832,6 @@ Connection ~ 2050 1000
 Connection ~ 1700 1000
 Wire Wire Line
 	1700 1000 2050 1000
-$Comp
-L power:+24V #PWR036
-U 1 1 5C83171F
-P 10575 3575
-F 0 "#PWR036" H 10575 3425 50  0001 C CNN
-F 1 "+24V" H 10590 3748 50  0000 C CNN
-F 2 "" H 10575 3575 50  0001 C CNN
-F 3 "" H 10575 3575 50  0001 C CNN
-	1    10575 3575
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10600 4475 10600 4675
 Wire Wire Line
 	8750 4575 8900 4575
 Wire Wire Line
@@ -1065,32 +848,6 @@ Wire Wire Line
 	9150 4700 9150 4475
 Connection ~ 9150 4475
 NoConn ~ 4550 4125
-$Comp
-L theapi_Battery:Battery_Meter BT1
-U 1 1 5C87CDCA
-P 10700 4875
-F 0 "BT1" H 10475 4950 50  0000 L CNN
-F 1 "Battery_Meter" H 10125 4875 50  0000 L CNN
-F 2 "theapi:TerminalBlock_Meter" H 10700 4875 50  0001 C CNN
-F 3 "" H 10700 4875 50  0001 C CNN
-	1    10700 4875
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10425 5150 10425 5125
-Wire Wire Line
-	10425 5125 10600 5125
-$Comp
-L power:-BATT #PWR0101
-U 1 1 5C892492
-P 10800 5825
-F 0 "#PWR0101" H 10800 5675 50  0001 C CNN
-F 1 "-BATT" H 10815 5998 50  0000 C CNN
-F 2 "" H 10800 5825 50  0001 C CNN
-F 3 "" H 10800 5825 50  0001 C CNN
-	1    10800 5825
-	-1   0    0    1   
-$EndComp
 Text Label 9325 4475 0    50   ~ 0
 OUT
 Text Label 7550 4325 0    50   ~ 0
@@ -1101,54 +858,8 @@ Text Label 5025 4225 0    50   ~ 0
 PA4
 Text Label 9150 5100 0    50   ~ 0
 LED_4
-$Comp
-L power:GND #PWR0102
-U 1 1 5C843977
-P 3150 6425
-F 0 "#PWR0102" H 3150 6175 50  0001 C CNN
-F 1 "GND" H 3155 6252 50  0000 C CNN
-F 2 "" H 3150 6425 50  0001 C CNN
-F 3 "" H 3150 6425 50  0001 C CNN
-	1    3150 6425
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7300 4325 7950 4325
-Connection ~ 10600 4475
-Wire Wire Line
-	10150 4475 10225 4475
-Text Label 10300 4475 0    50   ~ 0
-DIODE
-$Comp
-L Connector:Conn_01x03_Male J3
-U 1 1 5C8760FB
-P 10900 3925
-F 0 "J3" H 11100 3600 50  0000 R CNN
-F 1 "Voltmeter" H 11125 3700 50  0000 R CNN
-F 2 "theapi:Voltmeter_Header_1x03" H 10900 3925 50  0001 C CNN
-F 3 "~" H 10900 3925 50  0001 C CNN
-	1    10900 3925
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	10575 3575 10575 3825
-Wire Wire Line
-	10575 3825 10700 3825
-Wire Wire Line
-	10600 3925 10700 3925
-Wire Wire Line
-	10600 3925 10600 4475
-$Comp
-L power:GND #PWR09
-U 1 1 5C881C03
-P 10700 4025
-F 0 "#PWR09" H 10700 3775 50  0001 C CNN
-F 1 "GND" H 10705 3852 50  0000 C CNN
-F 2 "" H 10700 4025 50  0001 C CNN
-F 3 "" H 10700 4025 50  0001 C CNN
-	1    10700 4025
-	1    0    0    -1  
-$EndComp
 $Comp
 L Mechanical:MountingHole_Pad H1
 U 1 1 5C8B15A7
@@ -1169,28 +880,6 @@ F 1 "MountingHole_Pad" H 10125 1010 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 10025 1050 50  0001 C CNN
 F 3 "~" H 10025 1050 50  0001 C CNN
 	1    10025 1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H3
-U 1 1 5C8B74C5
-P 9000 1675
-F 0 "H3" H 9100 1726 50  0000 L CNN
-F 1 "MountingHole_Pad" H 9100 1635 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 9000 1675 50  0001 C CNN
-F 3 "~" H 9000 1675 50  0001 C CNN
-	1    9000 1675
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H4
-U 1 1 5C8B74CC
-P 10025 1675
-F 0 "H4" H 10125 1726 50  0000 L CNN
-F 1 "MountingHole_Pad" H 10125 1635 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 10025 1675 50  0001 C CNN
-F 3 "~" H 10025 1675 50  0001 C CNN
-	1    10025 1675
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1215,39 +904,10 @@ F 3 "" H 10025 1150 50  0001 C CNN
 	1    10025 1150
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR039
-U 1 1 5C8BA3D3
-P 10025 1775
-F 0 "#PWR039" H 10025 1525 50  0001 C CNN
-F 1 "GND" H 10030 1602 50  0000 C CNN
-F 2 "" H 10025 1775 50  0001 C CNN
-F 3 "" H 10025 1775 50  0001 C CNN
-	1    10025 1775
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR038
-U 1 1 5C8BA43A
-P 9000 1775
-F 0 "#PWR038" H 9000 1525 50  0001 C CNN
-F 1 "GND" H 9005 1602 50  0000 C CNN
-F 2 "" H 9000 1775 50  0001 C CNN
-F 3 "" H 9000 1775 50  0001 C CNN
-	1    9000 1775
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6650 3925 6650 3575
 Wire Wire Line
 	6650 3575 6875 3575
-Wire Wire Line
-	9150 4475 9850 4475
-Wire Wire Line
-	10225 2675 10225 2975
-Connection ~ 10225 4475
-Wire Wire Line
-	10225 4475 10600 4475
 Wire Wire Line
 	6875 3175 6875 3575
 Connection ~ 6875 3575
@@ -1273,13 +933,13 @@ Wire Wire Line
 $Comp
 L Device:R R10
 U 1 1 5CB53F25
-P 10075 2975
-F 0 "R10" V 10150 2975 50  0000 C CNN
-F 1 "10K" V 10075 2975 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10005 2975 50  0001 C CNN
-F 3 "~" H 10075 2975 50  0001 C CNN
-	1    10075 2975
-	0    -1   -1   0   
+P 9475 2825
+F 0 "R10" V 9550 2825 50  0000 C CNN
+F 1 "10K" V 9475 2825 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 9405 2825 50  0001 C CNN
+F 3 "~" H 9475 2825 50  0001 C CNN
+	1    9475 2825
+	1    0    0    -1  
 $EndComp
 $Comp
 L Transistor_FET:2N7002 Q2
@@ -1314,14 +974,43 @@ Wire Wire Line
 	8675 3250 8675 2950
 Wire Wire Line
 	8675 2950 7825 2950
-Connection ~ 10225 2975
 Wire Wire Line
-	10225 2975 10225 4475
-Wire Wire Line
-	7350 2675 9625 2675
-Wire Wire Line
-	9925 2975 9825 2975
+	7350 2675 9475 2675
 Connection ~ 9825 2975
 Wire Wire Line
 	4550 3925 6650 3925
+$Comp
+L Device:Battery BT1
+U 1 1 5D0E4C67
+P 10500 4675
+F 0 "BT1" H 10608 4721 50  0000 L CNN
+F 1 "Battery" H 10608 4630 50  0000 L CNN
+F 2 "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" V 10500 4735 50  0001 C CNN
+F 3 "~" V 10500 4735 50  0001 C CNN
+	1    10500 4675
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 5D0E51A0
+P 10500 4875
+F 0 "#PWR0101" H 10500 4625 50  0001 C CNN
+F 1 "GND" H 10505 4702 50  0000 C CNN
+F 2 "" H 10500 4875 50  0001 C CNN
+F 3 "" H 10500 4875 50  0001 C CNN
+	1    10500 4875
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10500 4475 10225 4475
+Connection ~ 10225 4475
+Wire Wire Line
+	9150 4475 10225 4475
+Connection ~ 9475 2675
+Wire Wire Line
+	9475 2675 9625 2675
+Wire Wire Line
+	9475 2975 9825 2975
+Wire Wire Line
+	10225 2675 10225 4475
 $EndSCHEMATC
