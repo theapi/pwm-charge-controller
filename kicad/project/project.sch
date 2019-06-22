@@ -416,41 +416,6 @@ $EndComp
 Wire Wire Line
 	8625 3500 9125 3500
 $Comp
-L Device:R R17
-U 1 1 5C7C0432
-P 9150 4850
-F 0 "R17" H 9220 4896 50  0000 L CNN
-F 1 "10K" H 9220 4805 50  0000 L CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 9080 4850 50  0001 C CNN
-F 3 "~" H 9150 4850 50  0001 C CNN
-	1    9150 4850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:LED D4
-U 1 1 5C7C051B
-P 9150 5300
-F 0 "D4" V 9188 5183 50  0000 R CNN
-F 1 "LED" V 9097 5183 50  0000 R CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9150 5300 50  0001 C CNN
-F 3 "~" H 9150 5300 50  0001 C CNN
-	1    9150 5300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR032
-U 1 1 5C7C05D8
-P 9150 5450
-F 0 "#PWR032" H 9150 5200 50  0001 C CNN
-F 1 "GND" H 9155 5277 50  0000 C CNN
-F 2 "" H 9150 5450 50  0001 C CNN
-F 3 "" H 9150 5450 50  0001 C CNN
-	1    9150 5450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9150 5150 9150 5000
-$Comp
 L Device:LED D1
 U 1 1 5C7C3D9B
 P 1950 5000
@@ -835,12 +800,7 @@ Wire Wire Line
 Wire Wire Line
 	8900 4675 8900 4575
 Connection ~ 8900 4575
-Wire Wire Line
-	8900 4475 9150 4475
 Connection ~ 8900 4475
-Wire Wire Line
-	9150 4700 9150 4475
-Connection ~ 9150 4475
 NoConn ~ 4550 4125
 Text Label 9325 4475 0    50   ~ 0
 OUT
@@ -850,8 +810,6 @@ Text Label 2825 4725 0    50   ~ 0
 LED_2
 Text Label 5025 4225 0    50   ~ 0
 PA4
-Text Label 9150 5100 0    50   ~ 0
-LED_4
 Wire Wire Line
 	7300 4325 7950 4325
 $Comp
@@ -866,17 +824,6 @@ F 3 "~" H 9000 1050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole_Pad H2
-U 1 1 5C8B1717
-P 10025 1050
-F 0 "H2" H 10125 1101 50  0000 L CNN
-F 1 "MountingHole_Pad" H 10125 1010 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 10025 1050 50  0001 C CNN
-F 3 "~" H 10025 1050 50  0001 C CNN
-	1    10025 1050
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR034
 U 1 1 5C8BA2A9
 P 9000 1150
@@ -885,17 +832,6 @@ F 1 "GND" H 9005 977 50  0000 C CNN
 F 2 "" H 9000 1150 50  0001 C CNN
 F 3 "" H 9000 1150 50  0001 C CNN
 	1    9000 1150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR037
-U 1 1 5C8BA36C
-P 10025 1150
-F 0 "#PWR037" H 10025 900 50  0001 C CNN
-F 1 "GND" H 10030 977 50  0000 C CNN
-F 2 "" H 10025 1150 50  0001 C CNN
-F 3 "" H 10025 1150 50  0001 C CNN
-	1    10025 1150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -927,12 +863,12 @@ Wire Wire Line
 $Comp
 L Device:R R10
 U 1 1 5CB53F25
-P 9475 2825
-F 0 "R10" V 9550 2825 50  0000 C CNN
-F 1 "10K" V 9475 2825 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 9405 2825 50  0001 C CNN
-F 3 "~" H 9475 2825 50  0001 C CNN
-	1    9475 2825
+P 10100 2825
+F 0 "R10" V 10175 2825 50  0000 C CNN
+F 1 "10K" V 10100 2825 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder" V 10030 2825 50  0001 C CNN
+F 3 "~" H 10100 2825 50  0001 C CNN
+	1    10100 2825
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -961,15 +897,13 @@ Connection ~ 8625 3500
 Wire Wire Line
 	9825 2975 9825 3050
 Wire Wire Line
-	10025 2675 10225 2675
+	10025 2675 10100 2675
 Wire Wire Line
 	9225 3250 8675 3250
 Wire Wire Line
 	8675 3250 8675 2950
 Wire Wire Line
 	8675 2950 7825 2950
-Wire Wire Line
-	7350 2675 9475 2675
 Connection ~ 9825 2975
 Wire Wire Line
 	4550 3925 6650 3925
@@ -999,15 +933,17 @@ Wire Wire Line
 	10500 4475 10225 4475
 Connection ~ 10225 4475
 Wire Wire Line
-	9150 4475 10225 4475
-Connection ~ 9475 2675
-Wire Wire Line
-	9475 2675 9625 2675
-Wire Wire Line
-	9475 2975 9825 2975
-Wire Wire Line
 	10225 2675 10225 4475
 NoConn ~ 4550 4625
 NoConn ~ 4550 4525
 NoConn ~ 4550 4725
+Connection ~ 10100 2675
+Wire Wire Line
+	10100 2675 10225 2675
+Wire Wire Line
+	9825 2975 10100 2975
+Wire Wire Line
+	7350 2675 9625 2675
+Wire Wire Line
+	8900 4475 10225 4475
 $EndSCHEMATC
