@@ -812,28 +812,6 @@ Text Label 5025 4225 0    50   ~ 0
 PA4
 Wire Wire Line
 	7300 4325 7950 4325
-$Comp
-L Mechanical:MountingHole_Pad H1
-U 1 1 5C8B15A7
-P 9000 1050
-F 0 "H1" H 9100 1101 50  0000 L CNN
-F 1 "MountingHole_Pad" H 9100 1010 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad" H 9000 1050 50  0001 C CNN
-F 3 "~" H 9000 1050 50  0001 C CNN
-	1    9000 1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR034
-U 1 1 5C8BA2A9
-P 9000 1150
-F 0 "#PWR034" H 9000 900 50  0001 C CNN
-F 1 "GND" H 9005 977 50  0000 C CNN
-F 2 "" H 9000 1150 50  0001 C CNN
-F 3 "" H 9000 1150 50  0001 C CNN
-	1    9000 1150
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6650 3925 6650 3575
 Wire Wire Line
