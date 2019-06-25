@@ -144,20 +144,15 @@ int main(void)
   // This is the driver pin for conecting the battery to the adc.
   // So the battery can always be connected but present no voltage
   // to the adc until it is powered.
-  HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
-//  /* Start the adc */
-//  HAL_ADC_Start(&hadc);
 
-  /* Start the PWM which is configured for 10.4kHz
-   *
-   * Smooth with 4.6k & 1uF RC low pass filter.
-   */
+
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
-  htim2.Instance->CCR1 = 0;
+  htim2.Instance->CCR1 = 500;
 
   /* USER CODE END 2 */
 
@@ -185,27 +180,27 @@ int main(void)
 
 	  HAL_ADC_Stop(&hadc);
 
-	  if (panel_mv > 12000) {
-		  //Allow for the diode drop.
-		  if (battery_mv > 13750) {
-			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
-			  if (htim2.Instance->CCR1 > 0) {
-				  htim2.Instance->CCR1 -= 1;
-			  }
-		  } else if (battery_mv < 13650){
-			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
-			  if (htim2.Instance->CCR1 < 253) {
-				  htim2.Instance->CCR1 += 1;
-			  }
-		  }
-	  } else {
-		  // Not enough to do charging.
-		  htim2.Instance->CCR1 = 0;
-	  }
-
-	  HAL_Delay(10);
+//	  if (panel_mv > 12000) {
+//		  //Allow for the diode drop.
+//		  if (battery_mv > 13750) {
+//			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
+//			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
+//			  if (htim2.Instance->CCR1 > 0) {
+//				  htim2.Instance->CCR1 -= 1;
+//			  }
+//		  } else if (battery_mv < 13650){
+//			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
+//			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
+//			  if (htim2.Instance->CCR1 < 253) {
+//				  htim2.Instance->CCR1 += 1;
+//			  }
+//		  }
+//	  } else {
+//		  // Not enough to do charging.
+//		  htim2.Instance->CCR1 = 0;
+//	  }
+//
+//	  HAL_Delay(10);
 
 
 //	  uint32_t now = HAL_GetTick();
@@ -247,7 +242,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
