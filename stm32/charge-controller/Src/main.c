@@ -51,8 +51,7 @@
 #include "string.h"
 #include "stdio.h"
 
-/* External ADC */
-#include "ads1015.h"
+#include "led.h"
 
 /* USER CODE END Includes */
 
@@ -92,16 +91,14 @@ void SystemClock_Config(void);
 /* Buffer used for debug UART */
 char tx_buffer[TXBUFFERSIZE];
 uint8_t msg_id = 0;
-//uint32_t batt = 0;
-//uint32_t ccr = 0;
-//uint32_t power = 100;
-//uint32_t alpha = 70;
-//uint32_t movingAverage = 0;
 
 
 uint32_t tx_last;
 uint32_t panel_mv = 0;
 uint32_t battery_mv = 0;
+
+LED_HandleTypeDef led1;
+LED_HandleTypeDef led2;
 
 /* USER CODE END 0 */
 
@@ -140,7 +137,19 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+  // HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
+
+  LED_Init(&led1, GPIOC, LED_1_Pin);
+  led1.offDuration = 500;
+  LED_on(&led1);
+
+  LED_HandleTypeDef led2;
+  LED_Init(&led2, GPIOC, LED_2_Pin);
+  led2.onDuration = 50;
+  led2.offDuration = 950;
+
+
+
   // This is the driver pin for conecting the battery to the adc.
   // So the battery can always be connected but present no voltage
   // to the adc until it is powered.
@@ -201,6 +210,18 @@ int main(void)
 //	  }
 //
 //	  HAL_Delay(10);
+
+	  /* Set the leds */
+	  if (htim2.Instance->CCR1 == 1000) {
+		  LED_on(&led1);
+	  } else if (htim2.Instance->CCR1 == 0) {
+		  LED_off(&led1);
+	  } else {
+		  led1.onDuration = htim2.Instance->CCR1;
+		  LED_flash(&led1);
+	  }
+
+	  LED_flash(&led2);
 
 
 //	  uint32_t now = HAL_GetTick();
