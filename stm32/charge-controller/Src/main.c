@@ -137,17 +137,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 
-  // HAL_GPIO_WritePin(GPIOC, LED_1_Pin|LED_2_Pin, GPIO_PIN_SET);
-
   LED_Init(&led1, GPIOC, LED_1_Pin);
-  led1.offDuration = 500;
-  LED_on(&led1);
+  led1.onDuration = 100;
+  led1.offDuration = 900;
 
-  LED_HandleTypeDef led2;
   LED_Init(&led2, GPIOC, LED_2_Pin);
-  led2.onDuration = 50;
-  led2.offDuration = 950;
-
+  led2.offDuration = 500;
+  LED_on(&led2);
 
 
   // This is the driver pin for conecting the battery to the adc.
@@ -213,15 +209,15 @@ int main(void)
 
 	  /* Set the leds */
 	  if (htim2.Instance->CCR1 == 1000) {
-		  LED_on(&led1);
+		  LED_on(&led2);
 	  } else if (htim2.Instance->CCR1 == 0) {
-		  LED_off(&led1);
+		  LED_off(&led2);
 	  } else {
-		  led1.onDuration = htim2.Instance->CCR1;
-		  LED_flash(&led1);
+		  led2.onDuration = htim2.Instance->CCR1;
+		  LED_flash(&led2);
 	  }
 
-	  LED_flash(&led2);
+	  LED_flash(&led1);
 
 
 //	  uint32_t now = HAL_GetTick();
