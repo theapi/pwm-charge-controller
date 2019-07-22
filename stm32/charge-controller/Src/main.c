@@ -145,12 +145,6 @@ int main(void)
   led2.offDuration = 500;
   LED_on(&led2);
 
-
-  // This is the driver pin for connecting the battery to the adc.
-  // So the battery can always be connected but present no voltage
-  // to the adc until it is powered.
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
-
   /* Calibrate the ADC */
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
 
@@ -158,6 +152,11 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
   htim2.Instance->CCR1 = 0;
+
+  // This is the driver pin for connecting the battery to the adc.
+  // So the battery can always be connected but present no voltage
+  // to the adc until it is powered.
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
 
   /* USER CODE END 2 */
@@ -185,7 +184,6 @@ int main(void)
 	  HAL_ADC_Stop(&hadc);
 
 	  if (panel_mv > battery_mv) {
-		  LED_flash(&led1);
 		  if (battery_mv > 13500) {
 			  if (htim2.Instance->CCR1 > 0) {
 				  htim2.Instance->CCR1 -= 1;
@@ -198,7 +196,6 @@ int main(void)
 	  } else {
 		  // Not enough to do charging.
 		  htim2.Instance->CCR1 = 0;
-		  LED_off(&led1);
 	  }
 
 
@@ -212,7 +209,8 @@ int main(void)
 		  LED_flash(&led2);
 	  }
 
-
+	  /* A continual flash to indicate powered on */
+	  LED_flash(&led1);
 
 
 //	  uint32_t now = HAL_GetTick();
