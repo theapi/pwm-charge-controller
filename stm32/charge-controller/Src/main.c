@@ -146,7 +146,7 @@ int main(void)
   LED_on(&led2);
 
 
-  // This is the driver pin for conecting the battery to the adc.
+  // This is the driver pin for connecting the battery to the adc.
   // So the battery can always be connected but present no voltage
   // to the adc until it is powered.
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
@@ -157,7 +157,8 @@ int main(void)
 
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
-  htim2.Instance->CCR1 = 500;
+  htim2.Instance->CCR1 = 0;
+
 
   /* USER CODE END 2 */
 
@@ -173,39 +174,33 @@ int main(void)
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
 	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
-	  // 866 = 5039   = 5.818706697 per bit
-	  // 2233 = 12995 = 5.819525302 per bit
-	  panel_mv = (panel_val * 5819) / 1000;
+	  // 2556 = 14800 = 5.79029734 per bit
+	  panel_mv = (panel_val * 5790) / 1000;
 
 	  HAL_ADC_PollForConversion(&hadc, 100);
 	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
-	  // 706 = 4084   = 5.7847025   per bit
-	  // 2225 = 12870 = 5.784269663 per bit
-	  battery_mv = (batt_val * 5784) / 1000;
+	  // 2330 = 13519 = 5.802145923 per bit
+	  battery_mv = (batt_val * 5802) / 1000;
 
 	  HAL_ADC_Stop(&hadc);
 
-//	  if (panel_mv > 12000) {
-//		  //Allow for the diode drop.
-//		  if (battery_mv > 13750) {
-//			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_SET);
-//			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_RESET);
-//			  if (htim2.Instance->CCR1 > 0) {
-//				  htim2.Instance->CCR1 -= 1;
-//			  }
-//		  } else if (battery_mv < 13650){
-//			  HAL_GPIO_WritePin(GPIOC, LED_1_Pin, GPIO_PIN_RESET);
-//			  //HAL_GPIO_WritePin(LED_3_GPIO_Port, LED_3_Pin, GPIO_PIN_SET);
-//			  if (htim2.Instance->CCR1 < 253) {
-//				  htim2.Instance->CCR1 += 1;
-//			  }
-//		  }
-//	  } else {
-//		  // Not enough to do charging.
-//		  htim2.Instance->CCR1 = 0;
-//	  }
-//
-//	  HAL_Delay(10);
+	  if (panel_mv > battery_mv) {
+		  LED_flash(&led1);
+		  if (battery_mv > 13500) {
+			  if (htim2.Instance->CCR1 > 0) {
+				  htim2.Instance->CCR1 -= 1;
+			  }
+		  } else if (battery_mv < 13500){
+			  if (htim2.Instance->CCR1 < 1000) {
+				  htim2.Instance->CCR1 += 1;
+			  }
+		  }
+	  } else {
+		  // Not enough to do charging.
+		  htim2.Instance->CCR1 = 0;
+		  LED_off(&led1);
+	  }
+
 
 	  /* Set the leds */
 	  if (htim2.Instance->CCR1 == 1000) {
@@ -217,11 +212,11 @@ int main(void)
 		  LED_flash(&led2);
 	  }
 
-	  LED_flash(&led1);
+
 
 
 //	  uint32_t now = HAL_GetTick();
-//	  if (now - tx_last >= 250) {
+//	  if (now - tx_last >= 500) {
 //		  tx_last = now;
 //		  int tx_len = snprintf(
 //				  tx_buffer,
