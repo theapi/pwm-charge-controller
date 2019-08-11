@@ -47,7 +47,6 @@
 
 /* Definition of ADCx conversions data table size */
 #define ADC_CONVERTED_DATA_BUFFER_SIZE   ((uint32_t)  32)   /* Size of array aADCxConvertedData[] */
-#define ADC_CHANNEL_BUFFER_SIZE          (ADC_CONVERTED_DATA_BUFFER_SIZE / 2) /* Data from 2 channels goe in the buffer */
 
 #define TXBUFFERSIZE 128
 #define READING_INDEX_LENGTH 4
@@ -65,7 +64,6 @@
 /* USER CODE BEGIN PV */
 /* Variable containing ADC conversions data */
 static uint16_t aADCxConvertedData[ADC_CONVERTED_DATA_BUFFER_SIZE];
-static uint16_t avgPA0;
 static uint16_t avgPA1;
 /* The comparator sets/resets this variable when comparing PA0 & PA1 */
 volatile uint8_t comparator = 0;
@@ -177,23 +175,15 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  uint32_t tmpAvgPA0 = 0;
 	  uint32_t tmpAvgPA1 = 0;
 	  uint16_t i = 0;
 	  while (i < ADC_CONVERTED_DATA_BUFFER_SIZE) {
-		  /* PA0 is in the even numbered indexes */
-		  tmpAvgPA0 += aADCxConvertedData[i];
-		  i++;
-		  /* PA1 is in the odd numbered indexes */
+		  /* PA1 is the battery */
 		  tmpAvgPA1 += aADCxConvertedData[i];
 		  i++;
 	  }
 	  // Use the average.
- 	  avgPA0 = tmpAvgPA0 / ADC_CHANNEL_BUFFER_SIZE;
- 	  avgPA1 = tmpAvgPA1 / ADC_CHANNEL_BUFFER_SIZE;
-
- 	  // 2556 = 14800 = 5.79029734 per bit
- 	  panel_mv = (avgPA0 * 5790) / 1000;
+ 	  avgPA1 = tmpAvgPA1 / ADC_CONVERTED_DATA_BUFFER_SIZE;
 
 	  // 2330 = 13519 = 5.802145923 per bit
 	  battery_mv = (avgPA1 * 5802) / 1000;
