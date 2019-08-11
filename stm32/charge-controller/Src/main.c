@@ -21,8 +21,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "comp.h"
+#include "dma.h"
 #include "tim.h"
-#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -44,6 +45,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+/* Definition of ADCx conversions data table size */
+#define ADC_CONVERTED_DATA_BUFFER_SIZE   ((uint32_t)  32)   /* Size of array aADCxConvertedData[] */
+#define ADC_CHANNEL_BUFFER_SIZE          (ADC_CONVERTED_DATA_BUFFER_SIZE / 2) /* Data from 2 channels goe in the buffer */
 
 #define TXBUFFERSIZE 128
 #define READING_INDEX_LENGTH 4
@@ -59,6 +63,25 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+/* Variable containing ADC conversions data */
+static uint16_t aADCxConvertedData[ADC_CONVERTED_DATA_BUFFER_SIZE];
+static uint16_t avgPA0;
+static uint16_t avgPA1;
+/* The comparator sets/resets this variable when comparing PA0 & PA1 */
+volatile uint8_t comparator = 0;
+
+
+/* Buffer used for debug UART */
+char tx_buffer[TXBUFFERSIZE];
+uint8_t msg_id = 0;
+
+uint32_t tx_last;
+uint32_t panel_mv = 0;
+uint32_t battery_mv = 0;
+
+LED_HandleTypeDef led1;
+LED_HandleTypeDef led2;
+
 
 /* USER CODE END PV */
 
@@ -70,20 +93,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-/* Buffer used for debug UART */
-char tx_buffer[TXBUFFERSIZE];
-uint8_t msg_id = 0;
-
-
-uint32_t tx_last;
-uint32_t panel_mv = 0;
-uint32_t battery_mv = 0;
-
-LED_HandleTypeDef led1;
-LED_HandleTypeDef led2;
-
-
 
 /* USER CODE END 0 */
 
@@ -116,9 +125,10 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART2_UART_Init();
+  MX_DMA_Init();
   MX_TIM2_Init();
   MX_ADC_Init();
+  MX_COMP1_Init();
   /* USER CODE BEGIN 2 */
 
 
@@ -130,13 +140,25 @@ int main(void)
   led2.offDuration = 500;
   LED_on(&led2);
 
-  /* Calibrate the ADC */
-  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
+  if (HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED) !=  HAL_OK)
+  {
+    Error_Handler();
+  }
 
+  HAL_COMP_Start(&hcomp1);
 
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  /* Start conversion in DMA mode ################################# */
+  if (HAL_ADC_Start_DMA(&hadc,
+                        (uint32_t *)aADCxConvertedData,
+                        ADC_CONVERTED_DATA_BUFFER_SIZE
+                       ) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   htim2.Instance->CCR1 = 0;
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
 
   // This is the driver pin for connecting the battery to the adc.
   // So the battery can always be connected but present no voltage
@@ -155,26 +177,35 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	  HAL_ADC_Start(&hadc);
+	  uint32_t tmpAvgPA0 = 0;
+	  uint32_t tmpAvgPA1 = 0;
+	  uint16_t i = 0;
+	  while (i < ADC_CONVERTED_DATA_BUFFER_SIZE) {
+		  /* PA0 is in the even numbered indexes */
+		  tmpAvgPA0 += aADCxConvertedData[i];
+		  i++;
+		  /* PA1 is in the odd numbered indexes */
+		  tmpAvgPA1 += aADCxConvertedData[i];
+		  i++;
+	  }
+	  // Use the average.
+ 	  avgPA0 = tmpAvgPA0 / ADC_CHANNEL_BUFFER_SIZE;
+ 	  avgPA1 = tmpAvgPA1 / ADC_CHANNEL_BUFFER_SIZE;
 
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t panel_val = HAL_ADC_GetValue(&hadc);
-	  // 2556 = 14800 = 5.79029734 per bit
-	  panel_mv = (panel_val * 5790) / 1000;
+ 	  // 2556 = 14800 = 5.79029734 per bit
+ 	  panel_mv = (avgPA0 * 5790) / 1000;
 
-	  HAL_ADC_PollForConversion(&hadc, 100);
-	  uint32_t batt_val = HAL_ADC_GetValue(&hadc);
 	  // 2330 = 13519 = 5.802145923 per bit
-	  battery_mv = (batt_val * 5802) / 1000;
+	  battery_mv = (avgPA1 * 5802) / 1000;
 
-	  HAL_ADC_Stop(&hadc);
-
-	  if (panel_mv > battery_mv) {
-		  if (battery_mv > 13500) {
+	  // If the comparator says the panel is a higher voltage than the battery
+	  // then charge.
+	  if (comparator) {
+		  if (battery_mv > 13501) {
 			  if (htim2.Instance->CCR1 > 0) {
 				  htim2.Instance->CCR1 -= 1;
 			  }
-		  } else if (battery_mv < 13500){
+		  } else if (battery_mv < 13499){
 			  if (htim2.Instance->CCR1 < 1000) {
 				  htim2.Instance->CCR1 += 1;
 			  }
@@ -228,7 +259,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Configure the main internal regulator output voltage 
   */
@@ -257,15 +287,17 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2;
-  PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_SYSCLK;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    Error_Handler();
-  }
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp) {
+	if (HAL_COMP_GetOutputLevel(hcomp)) {
+		comparator = 1;
+	} else {
+		comparator = 0;
+	}
+}
 
 /* USER CODE END 4 */
 
