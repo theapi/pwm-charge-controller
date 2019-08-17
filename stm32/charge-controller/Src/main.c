@@ -46,7 +46,7 @@
 /* USER CODE BEGIN PD */
 
 /* Definition of ADCx conversions data table size */
-#define ADC_CONVERTED_DATA_BUFFER_SIZE   ((uint32_t)  32)   /* Size of array aADCxConvertedData[] */
+#define ADC_CONVERTED_DATA_BUFFER_SIZE   ((uint32_t)  512)   /* Size of array aADCxConvertedData[] */
 
 #define TXBUFFERSIZE 128
 #define READING_INDEX_LENGTH 4
@@ -186,16 +186,18 @@ int main(void)
  	  avgPA1 = tmpAvgPA1 / ADC_CONVERTED_DATA_BUFFER_SIZE;
 
 	  // 2330 = 13519 = 5.802145923 per bit
-	  battery_mv = (avgPA1 * 5802) / 1000;
+ 	  // 13609 = 2327 = 5.848302535
+ 	  // 2310 13523 5.854112554
+	  battery_mv = (avgPA1 * 5854) / 1000;
 
 	  // If the comparator says the panel is a higher voltage than the battery
 	  // then charge.
 	  if (comparator) {
-		  if (battery_mv > 13501) {
+		  if (battery_mv > 13510) {
 			  if (htim2.Instance->CCR1 > 0) {
 				  htim2.Instance->CCR1 -= 1;
 			  }
-		  } else if (battery_mv < 13499){
+		  } else if (battery_mv < 13490){
 			  if (htim2.Instance->CCR1 < 1000) {
 				  htim2.Instance->CCR1 += 1;
 			  }
@@ -219,6 +221,7 @@ int main(void)
 	  /* A continual flash to indicate powered on */
 	  LED_flash(&led1);
 
+	 // HAL_Delay(20);
 
 //	  uint32_t now = HAL_GetTick();
 //	  if (now - tx_last >= 500) {
